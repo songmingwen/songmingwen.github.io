@@ -310,18 +310,18 @@
       
         
           
-            <h2 id="一、开发阶段"><a href="#一、开发阶段" class="headerlink" title="一、开发阶段"></a>一、开发阶段</h2><h3 id="1、使用-android-annotations-注解库"><a href="#1、使用-android-annotations-注解库" class="headerlink" title="1、使用 android annotations 注解库"></a>1、使用 android annotations 注解库</h3><p>&emsp;&emsp; @Nullable：Denotes that a parameter, field or method return value can be null.</p>
-<p>&emsp;&emsp; @NonNull：Denotes that a parameter, field or method return value can never be null.</p>
-<p>&emsp;&emsp; 注解可以辅助开发人员注意空指针问题，但无法 100% 避免。</p>
+            <h2 id="一、开发阶段"><a href="#一、开发阶段" class="headerlink" title="一、开发阶段"></a>一、开发阶段</h2><h3 id="1、使用-android-annotations-注解库"><a href="#1、使用-android-annotations-注解库" class="headerlink" title="1、使用 android annotations 注解库"></a>1、使用 android annotations 注解库</h3><p>&emsp;&emsp; <font color="#cd7f32">@Nullable</font>：Denotes that a parameter, field or method return value can be null.</p>
+<p>&emsp;&emsp; <font color="#cd7f32">@NonNull</font>：Denotes that a parameter, field or method return value can never be null.</p>
+<p>&emsp;&emsp; <font color="#ff5500">注解可以辅助开发人员注意空指针问题，但无法 100% 避免。</font></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Nullable</span>	<span class="comment">//表示返回值可能为空</span></span><br><span class="line"><span class="keyword">private</span> RecyclerItem[] retrieveRecyclerItems(<span class="meta">@NonNull</span> String messageId) &#123;	<span class="comment">//表示 messageId 不会为空（为了安全起见，还是需要自己判断一下）</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="2、返回值用「空对象」替代「null」"><a href="#2、返回值用「空对象」替代「null」" class="headerlink" title="2、返回值用「空对象」替代「null」"></a>2、返回值用「空对象」替代「null」</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> ArrayList&lt;String&gt; <span class="title">getList</span><span class="params">()</span></span>&#123;</span><br><span class="line">    ArrayList&lt;String&gt; arrayList = <span class="keyword">new</span> ArrayList&lt;&gt;();	<span class="comment">//初始化一个空的 ArrayList</span></span><br><span class="line">    <span class="keyword">if</span> (hasContent()) &#123;</span><br><span class="line">        arrayList.add(...)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arrayList;	<span class="comment">//返回空的或者有内容的 ArrayList，不返回 null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="3、通过-IDE-来检测可能出现的空指针"><a href="#3、通过-IDE-来检测可能出现的空指针" class="headerlink" title="3、通过 IDE 来检测可能出现的空指针"></a>3、通过 IDE 来检测可能出现的空指针</h3><p>&emsp;&emsp; 默认系统应该已经配置好了。</p>
 <p>&emsp;&emsp; 效果如下图：如果存在空指针的情况，系统会给出提示（黄色蒙层）。</p>
-<p>&emsp;&emsp; PS：系统给出的提示（黄色蒙层）建议大家注意一下。大部分都是代码问题、代码优化问题。</p>
+<p>&emsp;&emsp; <font color="#ff5500">PS：系统给出的提示（黄色蒙层）建议大家注意一下。大部分都是代码问题、代码优化问题。</font></p>
 <p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/find_bugs_warings.png?raw=true" alt="黄色蒙层"></p>
-<h4 id="IDE-空指针检测配置方法"><a href="#IDE-空指针检测配置方法" class="headerlink" title="IDE 空指针检测配置方法"></a>IDE 空指针检测配置方法</h4><p>&emsp;&emsp; 提示等级建议改为 Error 级别（因为醒目）</p>
+<h4 id="IDE-空指针检测配置方法"><a href="#IDE-空指针检测配置方法" class="headerlink" title="IDE 空指针检测配置方法"></a>IDE 空指针检测配置方法</h4><p>&emsp;&emsp; 提示等级建议改为 <font color="#ff0000">Error</font> 级别（因为醒目）</p>
 <p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/find_bugs_settings.png?raw=true" alt="提示等级建议改为 Error 级别"></p>
 <h3 id="4、其他的代码规范化写法"><a href="#4、其他的代码规范化写法" class="headerlink" title="4、其他的代码规范化写法"></a>4、其他的代码规范化写法</h3><p>&emsp;&emsp; 1）、避免不安全的链式调用：eg：object.getA().getB().getC();</p>
 <p>&emsp;&emsp; 2）、多次使用的判空可以提成一个通用的方法。</p>
