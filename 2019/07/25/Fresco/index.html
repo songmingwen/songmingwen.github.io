@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang>
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,7 +85,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/07/25/Fresco/index.html">
 <meta property="og:site_name" content="Song">
 <meta property="og:description" content="[TOC] 环境搭建及初始化操作支持的 URI 注意：只有图片资源才能使用在 Image pipeline 中，比如(PNG)。其他资源类型，比如字符串，或者 XML Drawable 在 Image pipeline 中没有意义。所以加载的资源不支持这些类型。 像 ShapeDrawable这样声明在 XML 中的 drawable 可能引起困惑。注意到这毕竟不是图片。如果想把这样的 drawa">
-<meta property="og:locale" content="default">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/fresco_support_img_type.png?raw=true">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/fresco_progressbar.jpg?raw=true">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/UML%E7%B1%BB%E5%9B%BE.png?raw=true">
@@ -103,13 +103,13 @@
     root: '/',
     scheme: 'Mist',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -141,14 +141,14 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -189,7 +189,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-Home"></i> <br>
             
-            Home
+            首页
           </a>
         </li>
       
@@ -199,7 +199,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
-            About
+            关于
           </a>
         </li>
       
@@ -241,7 +241,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Songmingwen">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://raw.githubusercontent.com/songmingwen/songmingwen.github.io/master/assets/img/avatar.webp">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -263,9 +263,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-25T17:21:45+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-25T17:21:45+08:00">
                 2019-07-25
               </time>
             
@@ -433,10 +433,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -444,6 +444,8 @@
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://raw.githubusercontent.com/songmingwen/songmingwen.github.io/master/assets/img/avatar.webp" alt="Songmingwen">
             
               <p class="site-author-name" itemprop="name">Songmingwen</p>
               <p class="site-description motion-element" itemprop="description"></p>
@@ -457,7 +459,7 @@
                 <a href="/archives">
               
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -523,7 +525,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -531,7 +533,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
 
