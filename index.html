@@ -133,27 +133,15 @@
     <article id="post-Fresco" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/25/Fresco/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/25/Fresco/" class="archive-article-date">
-  	<time datetime="2019-07-25T09:21:45.241Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-25</time>
-</a>
-        
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="环境搭建及初始化操作"><a href="#环境搭建及初始化操作" class="headerlink" title="环境搭建及初始化操作"></a><a href="https://www.fresco-cn.org/docs/index.html" target="_blank" rel="noopener">环境搭建及初始化操作</a></h2><h2 id="支持的-URI"><a href="#支持的-URI" class="headerlink" title="支持的 URI"></a>支持的 URI</h2><p><img src="http://wiki.in.zhihu.com/download/attachments/49649421/1298B521-B58D-4008-ADAC-A867BABD45F8.png?version=1&modificationDate=1531977756667&api=v2" alt="img"></p>
+        <p>title: Hello World</p>
+<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="环境搭建及初始化操作"><a href="#环境搭建及初始化操作" class="headerlink" title="环境搭建及初始化操作"></a><a href="https://www.fresco-cn.org/docs/index.html" target="_blank" rel="noopener">环境搭建及初始化操作</a></h2><h2 id="支持的-URI"><a href="#支持的-URI" class="headerlink" title="支持的 URI"></a>支持的 URI</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/fresco_support_img_type.png?raw=true" alt="img"></p>
 <p><strong>注意：</strong>只有图片资源才能使用在 Image pipeline 中，比如(PNG)。其他资源类型，比如字符串，或者 XML Drawable 在 Image pipeline 中没有意义。所以加载的资源不支持这些类型。</p>
 <p>像 <code>ShapeDrawable</code>这样声明在 XML 中的 drawable 可能引起困惑。注意到这毕竟不是图片。如果想把这样的 drawable 作为图像显示，那么把这个 drawable 设置为占位图，然后把 URI 设置为 <code>null</code>。</p>
+<h2 id="在-XML-中使用-Drawees"><a href="#在-XML-中使用-Drawees" class="headerlink" title="在 XML 中使用 Drawees"></a><a href="https://www.fresco-cn.org/docs/using-drawees-xml.html" target="_blank" rel="noopener">在 XML 中使用 Drawees</a></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`&lt;com.facebook.drawee.view.SimpleDraweeView xmlns:fresco=<span class="string">"http://schemas.android.com/apk/res-auto"</span>         android:id=<span class="string">"@+id/image_fresco2"</span>         android:layout_width=<span class="string">"100dip"</span>         android:layout_height=<span class="string">"wrap_content"</span>						//「wrap_content」意味着控件高度是 0         fresco:actualImageScaleType=<span class="string">"centerCrop"</span>					//加载完成的图片的缩放样式         fresco:fadeDuration=<span class="string">"3000"</span>									//由进度条和占位符图片渐变过渡到加载完成的图片所使用的时间间隔         fresco:failureImage=<span class="string">"@mipmap/ic_launcher"</span>					//加载失败所使用的图片         fresco:failureImageScaleType=<span class="string">"centerCrop"</span>					//加载失败所使用的图片的缩放样式         fresco:placeholderImage=<span class="string">"@mipmap/ic_launcher"</span>				//占位符图片         fresco:placeholderImageScaleType=<span class="string">"centerCrop"</span>				//占位符图片的缩放样式         fresco:progressBarAutoRotateInterval=<span class="string">"1000"</span>					//旋转进度条旋转1圈所需要的时间         fresco:progressBarImage=<span class="string">"@drawable/ani_rotate"</span>				//旋转进度条所使用的图片         fresco:progressBarImageScaleType=<span class="string">"centerCrop"</span>				//旋转进度条所使用的图片的缩放样式         fresco:retryImage=<span class="string">"@mipmap/ic_launcher"</span>						//重试所使用的图片         fresco:retryImageScaleType=<span class="string">"centerCrop"</span>						//重试所使用的图片的缩放样式         fresco:backgroundImage=<span class="string">"@mipmap/ic_launcher"</span>				//背景图片         fresco:overlayImage=<span class="string">"@mipmap/ic_launcher"</span>					//覆盖在加载完成后图片上的叠加图片         fresco:pressedStateOverlayImage=<span class="string">"@mipmap/ic_launcher"</span>		//按压状态下的叠加图片         fresco:roundAsCircle=<span class="string">"false"</span>								//是否将图片剪切为圆形         fresco:roundedCornerRadius=<span class="string">"5dip"</span>							//圆角图片时候，圆角的半径大小         fresco:roundTopLeft=<span class="string">"true"</span>									//左上角是否为圆角         fresco:roundTopRight=<span class="string">"true"</span>									//右上角是否为圆角         fresco:roundBottomLeft=<span class="string">"true"</span>								//左下角是否为圆角         fresco:roundBottomRight=<span class="string">"true"</span>								//右下角是否为圆角         fresco:roundWithOverlayColor=<span class="string">"@color/colorAccent"</span>			//圆角或圆形图叠加的颜色，只能是颜色         fresco:roundingBorderWidth=<span class="string">"2dip"</span>							//圆角或圆形图边框的宽度         fresco:roundingBorderColor=<span class="string">"@color/colorPrimary"</span>			//圆角或圆形图边框的颜色         fresco:viewAspectRatio=<span class="string">"1"</span>									//设置宽高比 		/&gt;`</span><br></pre></td></tr></table></figure>
+
 
       
 
