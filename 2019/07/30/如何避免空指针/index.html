@@ -88,7 +88,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/find_bugs_warings.png?raw=true">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/find_bugs_settings.png?raw=true">
-<meta property="og:updated_time" content="2019-07-31T08:48:05.559Z">
+<meta property="og:updated_time" content="2019-07-31T08:48:42.977Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何避免空指针">
 <meta name="twitter:description" content="一、开发阶段1、使用 android annotations 注解库&amp;emsp;&amp;emsp; @Nullable：Denotes that a parameter, field or method return value can be null. &amp;emsp;&amp;emsp; @NonNull：Denotes that a parameter, field or method return valu">
@@ -327,7 +327,7 @@
 <p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/find_bugs_settings.png?raw=true" alt="提示等级建议改为 Error 级别"></p>
 <h3 id="4、其他的代码规范化写法"><a href="#4、其他的代码规范化写法" class="headerlink" title="4、其他的代码规范化写法"></a>4、其他的代码规范化写法</h3><p>&emsp;&emsp; 1）、避免不安全的链式调用：eg：object.getA().getB().getC();</p>
 <p>&emsp;&emsp; 2）、多次使用的判空可以提成一个通用的方法。</p>
-<h2 id="二、测试阶段"><a href="#二、测试阶段" class="headerlink" title="二、测试阶段"></a>二、测试阶段</h2><h3 id="1、使用-FindBugs-扫描文件，检查代码安全性"><a href="#1、使用-FindBugs-扫描文件，检查代码安全性" class="headerlink" title="1、使用 FindBugs 扫描文件，检查代码安全性"></a>1、使用 FindBugs 扫描文件，检查代码安全性</h3><p>&emsp;&emsp; <a href="http://wiki.in.zhihu.com/pages/viewpage.action?pageId=46886367" target="_blank" rel="noopener">FindBugs</a> 不仅仅检查空指针，它能够全面的检查代码质量</p>
+<h2 id="二、测试阶段"><a href="#二、测试阶段" class="headerlink" title="二、测试阶段"></a>二、测试阶段</h2><h3 id="1、使用-FindBugs-扫描文件，检查代码安全性"><a href="#1、使用-FindBugs-扫描文件，检查代码安全性" class="headerlink" title="1、使用 FindBugs 扫描文件，检查代码安全性"></a>1、使用 FindBugs 扫描文件，检查代码安全性</h3><p>&emsp;&emsp; FindBugs 不仅仅检查空指针，它能够全面的检查代码质量</p>
 <h3 id="2、Monkey-测试"><a href="#2、Monkey-测试" class="headerlink" title="2、Monkey 测试"></a>2、Monkey 测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell monkey -pcom.zhihu.android -v 30000</span><br></pre></td></tr></table></figure>
 
 <h3 id="3、最终由-QA-做最后的检查"><a href="#3、最终由-QA-做最后的检查" class="headerlink" title="3、最终由 QA 做最后的检查"></a>3、最终由 QA 做最后的检查</h3><h2 id="三、换编程语言-kotlin-？"><a href="#三、换编程语言-kotlin-？" class="headerlink" title="三、换编程语言 kotlin ？"></a>三、换编程语言 <a href="https://www.kotlincn.net/docs/reference/" target="_blank" rel="noopener">kotlin</a> ？</h2>
