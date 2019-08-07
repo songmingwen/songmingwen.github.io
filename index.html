@@ -312,7 +312,7 @@
           
             <h2 id="OpenGL-简介"><a href="#OpenGL-简介" class="headerlink" title="OpenGL 简介"></a>OpenGL 简介</h2><p>在 Android 上，与 IOS 及许多其他移动平台一样，开发者可以使用一个跨平台应用编程接口创建二维或者三维图形，这个接口称为 OpenGL。</p>
 <p>移动平台上使用的是一个特殊的嵌入式版本，叫做 OpenGL ES。</p>
-<p>Android 上的 OpenGL 主要可以用来做动态壁纸（live wallpaper）、三维游戏等</p>
+<p>Android 上的 OpenGL 主要可以用来做动态壁纸（live wallpaper）、三维游戏等。</p>
 <h2 id="GLSurfaceView-后台线程渲染-UI"><a href="#GLSurfaceView-后台线程渲染-UI" class="headerlink" title="GLSurfaceView 后台线程渲染 UI"></a>GLSurfaceView 后台线程渲染 UI</h2><p>View 的更新不能在子线程，相关代码：ViewRootImpl.java</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">checkThread</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mThread != Thread.currentThread()) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> CalledFromWrongThreadException(</span><br><span class="line">                    <span class="string">"Only the original thread that created a view hierarchy can touch its views."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
