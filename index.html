@@ -310,19 +310,26 @@
       
         
           
-            <h2 id="Android-开机流程"><a href="#Android-开机流程" class="headerlink" title="Android 开机流程"></a>Android 开机流程</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.png?raw=true" alt="流程图"></p>
-<h4 id="BootLoader引导"><a href="#BootLoader引导" class="headerlink" title="BootLoader引导"></a>BootLoader引导</h4><p>当按开机键的时候，引导芯片开始从固化在ROM的预设代码开始执行，然后加载引导程序到RAM<br>BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序<br>BootLoader负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存</p>
-<h4 id="启动Kernel"><a href="#启动Kernel" class="headerlink" title="启动Kernel"></a>启动Kernel</h4><p>这个入口的函数是start_kernel函数<br>start_kernel函数执行到最后调用了reset_init函数进行后续的初始化<br>start_kernel最终启动用户空间的init程序</p>
-<h4 id="启动Android"><a href="#启动Android" class="headerlink" title="启动Android"></a>启动Android</h4><p>当初始化内核之后，init进程负责解析init.rc配置文件, 就会启动一个相当重要的祖先进程，也就是init进程，在Linux中所有的进程都是由init进程直接或间接fork出来的</p>
+            <p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.png?raw=true" alt="流程图"></p>
+<h2 id="BootLoader引导"><a href="#BootLoader引导" class="headerlink" title="BootLoader引导"></a>BootLoader引导</h2><ul>
+<li>当按开机键的时候，引导芯片开始从固化在 ROM 的预设代码开始执行，然后加载引导程序到 RAM</li>
+<li>BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序，负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存</li>
+</ul>
+<h2 id="启动Kernel"><a href="#启动Kernel" class="headerlink" title="启动Kernel"></a>启动Kernel</h2><ul>
+<li>入口的函数是 start_kernel 函数</li>
+<li>start_kernel 函数执行到最后调用了 reset_init 函数进行后续的初始化</li>
+<li>start_kernel 最终启动用户空间的 init 程序</li>
+</ul>
+<h2 id="启动Android"><a href="#启动Android" class="headerlink" title="启动Android"></a>启动Android</h2><p>当初始化内核之后，init 进程负责解析 init.rc 配置文件, 就会启动一个相当重要的祖先进程，也就是 init 进程，在 Linux 中所有的进程都是由 init 进程直接或间接 fork 出来的</p>
 <blockquote>
 <ul>
-<li>/system/bin/app_process_Zygote    服务启动的进程名</li>
-<li>–start-system-server        表明 Zygote 启动完成后，需要启动 System_Server 进程</li>
-<li>socket zygote stream 666        在 Zygote 启动时，创建一个权限为 666 的 socket。此 socket 用来请求 zygote 创建新进程</li>
+<li>/system/bin/app_process_Zygote 服务启动的进程名</li>
+<li>–start-system-server 表明 Zygote 启动完成后，需要启动 System_Server 进程</li>
+<li>socket zygote stream 666 在 Zygote 启动时，创建一个权限为 666 的 socket。此 socket 用来请求 zygote 创建新进程</li>
 <li>socket 的 fd 保存在名称为”ANDROID_SOCKET_zygote”的环境变量中</li>
 </ul>
 </blockquote>
-<p>init进程负责创建系统中最关键的几个核心daemon(守护)进程，尤其是zygote和System_Server进程</p>
+<p>init 进程负责创建系统中最关键的几个核心 daemon (守护)进程，尤其是 zygote 和 System_Server 进程</p>
 <blockquote>
 <ol>
 <li>zygote 进程 android 启动的第一个 Dalvik 虚拟机，它将负责启动 Java 世界的进程</li>
@@ -333,36 +340,35 @@
 <li>system_server 中开启了核心系统服务，并将系统服务添加到 ServiceManager 中，然后系统进入 SystemReady 状态</li>
 </ol>
 </blockquote>
-<p>启动Home Activity</p>
-<ol>
-<li>在systemReady状态，ActivityManagerService会与zygote的Socket通信，请求启动Home</li>
-<li>zygote收到AMS的连接请求后，执行runSelectLoopMode处理请求</li>
-<li>zygote处理请求会通过forkAndSpecialize启动新的应用进程，并最终启动Home</li>
+<h3 id="启动Home-Activity"><a href="#启动Home-Activity" class="headerlink" title="启动Home Activity"></a>启动Home Activity</h3><ol>
+<li>在systemReady状态，ActivityManagerService 会与 zygote 的 Socket 通信，请求启动 Home</li>
+<li>zygote 收到 AMS 的连接请求后，执行 runSelectLoopMode 处理请求</li>
+<li>zygote 处理请求会通过 forkAndSpecialize 启动新的应用进程，并最终启动 Home</li>
 </ol>
 <blockquote>
 <ul>
 <li>概况</li>
 </ul>
 <ol>
-<li>系统加电，执行bootloader。Bootloader负责初始化软件运行的最小硬件环境，最后加载内核到内存</li>
-<li>内核加载到内存后，进入内核引导阶段，在内核引导的最后，调用start_kernel进入内核启动阶段。start_kernel最终启动用户空间的init程序</li>
-<li>init负责解析init.rc配置文件，开启系统守护进程。2个最重要的守护进程是zygote进程和serverManager进程。zygote是android启动的第一个Dalvik虚拟机，ServiceManager服务是Binder通信的基础</li>
-<li>zygote虚拟机启动子进程system_server，在system_server中启动了核心系统服务，并将系统服务添加到ServiceManager中，然后系统进入SystemReady状态</li>
-<li>在SystemReady状态，ActivityManagerService与zygote中的socket通信，通过zygote启动home应用，进入系统界面</li>
+<li>系统加电，执行 bootloader。Bootloade r负责初始化软件运行的最小硬件环境，最后加载内核到内存</li>
+<li>内核加载到内存后，进入内核引导阶段，在内核引导的最后，调用 start_kernel 进入内核启动阶段。start_kernel 最终启动用户空间的 init 程序</li>
+<li>init 负责解析 init.rc 配置文件，开启系统守护进程。2 个最重要的守护进程是 zygote 进程和 serverManager进程。zygote 是 android 启动的第一个 Dalvik 虚拟机，ServiceManager 服务是 Binder 通信的基础</li>
+<li>zygote 虚拟机启动子进程 system_server，在 system_server 中启动了核心系统服务，并将系统服务添加到ServiceManager 中，然后系统进入 SystemReady 状态</li>
+<li>在 SystemReady 状态，ActivityManagerService 与 zygote 中的 socket 通信，通过 zygote 启动 home 应用，进入系统界面</li>
 </ol>
 <ul>
 <li>从步骤3开始, init启动后，上层的实现</li>
 </ul>
 <ol>
-<li>init启动的核心Daemon服务包括Android的第一个Dalvik虚拟机Zygote</li>
-<li>zygote定义一个socket,用于接受ActivityManangerService启动应用的请求</li>
-<li>zygote通过fork系统调用创建system_server进程</li>
-<li>在system_server进程中，将会启动系统核心服务以及其他服务</li>
-<li>系统服务启动后会注册到ServiceManager中，用于Binder通信</li>
-<li>ActivityManagerService进入systemReady状态</li>
-<li>在systemReady状态,ActivityManangerService会与zygote的Socket通信，请求启动Home</li>
-<li>zygote收到AMS的连接请求后，执行runSelectLoopMode处理请求</li>
-<li>zygote处理请求会通过forkAndSpecialize启动新的应用进程，并最终启动Home</li>
+<li>init 启动的核心 Daemon 服务包括 Android 的第一个 Dalvik 虚拟机 Zygote</li>
+<li>zygote 定义一个 socket,用于接受 ActivityManangerService 启动应用的请求</li>
+<li>zygote 通过 fork 系统调用创建 system_server 进程</li>
+<li>在 system_server 进程中，将会启动系统核心服务以及其他服务</li>
+<li>系统服务启动后会注册到 ServiceManager 中，用于 Binder 通信</li>
+<li>ActivityManagerService 进入 systemReady 状态</li>
+<li>在 systemReady 状态,ActivityManangerService 会与 zygote的Socket 通信，请求启动 Home</li>
+<li>zygote 收到 AMS 的连接请求后，执行 runSelectLoopMode 处理请求</li>
+<li>zygote 处理请求会通过 forkAndSpecialize 启动新的应用进程，并最终启动 Home</li>
 </ol>
 </blockquote>
 
@@ -484,7 +490,7 @@
       
         
           
-            <h2 id="App-启动流程"><a href="#App-启动流程" class="headerlink" title="App 启动流程"></a>App 启动流程</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/app_startup_process.jpg?raw=true" alt="流程图"></p>
+            <p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/app_startup_process.jpg?raw=true" alt="流程图"></p>
 <ol>
 <li><p>点击桌面App图标,Launcher进程采用Binder IPC向system_server进程发起startActivity请求</p>
 </li>
