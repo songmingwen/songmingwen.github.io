@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="Android 绘制原理Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件   Window类时一个抽象类，提">
+<meta name="description" content="Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件   Window 类时一个抽象类，提供绘制窗口的 API">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android View 绘制原理">
 <meta property="og:url" content="http://yoursite.com/2019/09/11/Android 绘制原理/index.html">
 <meta property="og:site_name" content="Song">
-<meta property="og:description" content="Android 绘制原理Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件   Window类时一个抽象类，提">
+<meta property="og:description" content="Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件   Window 类时一个抽象类，提供绘制窗口的 API">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.jpg?raw=true">
-<meta property="og:updated_time" content="2019-09-11T07:37:45.144Z">
+<meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.png?raw=true">
+<meta property="og:updated_time" content="2019-09-11T07:45:18.001Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android View 绘制原理">
-<meta name="twitter:description" content="Android 绘制原理Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件   Window类时一个抽象类，提">
-<meta name="twitter:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.jpg?raw=true">
+<meta name="twitter:description" content="Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件   Window 类时一个抽象类，提供绘制窗口的 API">
+<meta name="twitter:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.png?raw=true">
 
 
 
@@ -311,32 +311,32 @@
       
 
       
-        <h2 id="Android-绘制原理"><a href="#Android-绘制原理" class="headerlink" title="Android 绘制原理"></a>Android 绘制原理</h2><p>Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件</p>
-<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.jpg?raw=true" alt></p>
+        <p>Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件</p>
+<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.png?raw=true" alt></p>
 <ol>
-<li><p>Window类时一个抽象类，提供绘制窗口的API</p>
+<li><p>Window 类时一个抽象类，提供绘制窗口的 API</p>
 </li>
-<li><p>PhoneWindow是继承Window的一个具体的类，该类内部包含了一个DecorView对象，该DectorView对象是所有应用窗口(Activity界面)的根View</p>
+<li><p>PhoneWindow 是继承 Window 的一个具体的类，该类内部包含了一个 DecorView 对象，该 DectorView 对象是所有应用窗口(Activity 界面)的根 View</p>
 </li>
-<li><p>DecorView继承FrameLayout，里面id=content的就是我们传入的布局视图</p>
+<li><p>DecorView 继承 FrameLayout，里面 id=content 的就是我们传入的布局视图</p>
 </li>
-<li><p>ContentView必须是一个ViewGroup</p>
+<li><p>ContentView 必须是一个 ViewGroup</p>
 </li>
 <li><p>ViewGroup 开始递归执行以下逻辑进行绘制</p>
 <blockquote>
-<p>measure, 递归测量view的大小。有3种测量模式</p>
+<p>measure, 递归测量 view 的大小。有3种测量模式</p>
 <ul>
-<li><p>MeasureSpec.EXACTLY表示确定大小</p>
+<li><p>MeasureSpec.EXACTLY 表示确定大小</p>
 </li>
-<li><p>MeasureSpec.AT_MOST表示最大大小</p>
+<li><p>MeasureSpec.AT_MOST 表示最大大小</p>
 </li>
-<li><p>MeasureSpec.UNSPECIFIED不确定</p>
+<li><p>MeasureSpec.UNSPECIFIED 不确定</p>
 </li>
 </ul>
-<p>layout，递归布局view的位置</p>
-<p>draw，递归绘制view</p>
+<p>layout，递归布局 view 的位置</p>
+<p>draw，递归绘制 view</p>
 <ul>
-<li>ViewRootImpl中的代码会创建一个Canvas对象，然后调用View的draw()方法来执行具体的绘制</li>
+<li>ViewRootImpl 中的代码会创建一个 Canvas 对象，然后调用 View的 draw() 方法来执行具体的绘制</li>
 </ul>
 </blockquote>
 </li>
@@ -425,17 +425,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -479,22 +470,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-绘制原理"><span class="nav-number">1.</span> <span class="nav-text">Android 绘制原理</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
