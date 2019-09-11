@@ -239,6 +239,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/Android 开机流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Songmingwen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/avatar.png?raw=true">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/11/Android 开机流程/" itemprop="url">Android 开机流程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T14:09:59+08:00">
+                2019-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Android-开机流程"><a href="#Android-开机流程" class="headerlink" title="Android 开机流程"></a>Android 开机流程</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.jpg?raw=true" alt="流程图"></p>
+<h4 id="BootLoader引导"><a href="#BootLoader引导" class="headerlink" title="BootLoader引导"></a>BootLoader引导</h4><p>当按开机键的时候，引导芯片开始从固化在ROM的预设代码开始执行，然后加载引导程序到RAM<br>BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序<br>BootLoader负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存</p>
+<h4 id="启动Kernel"><a href="#启动Kernel" class="headerlink" title="启动Kernel"></a>启动Kernel</h4><p>这个入口的函数是start_kernel函数<br>start_kernel函数执行到最后调用了reset_init函数进行后续的初始化<br>start_kernel最终启动用户空间的init程序</p>
+<h4 id="启动Android"><a href="#启动Android" class="headerlink" title="启动Android"></a>启动Android</h4><p>当初始化内核之后，init进程负责解析init.rc配置文件, 就会启动一个相当重要的祖先进程，也就是init进程，在Linux中所有的进程都是由init进程直接或间接fork出来的</p>
+<blockquote>
+<ul>
+<li>/system/bin/app_process_Zygote    服务启动的进程名</li>
+<li>–start-system-server        表明 Zygote 启动完成后，需要启动 System_Server 进程</li>
+<li>socket zygote stream 666        在 Zygote 启动时，创建一个权限为 666 的 socket。此 socket 用来请求 zygote 创建新进程</li>
+<li>socket 的 fd 保存在名称为”ANDROID_SOCKET_zygote”的环境变量中</li>
+</ul>
+</blockquote>
+<p>init进程负责创建系统中最关键的几个核心daemon(守护)进程，尤其是zygote和System_Server进程</p>
+<blockquote>
+<ol>
+<li>zygote 进程 android 启动的第一个 Dalvik 虚拟机，它将负责启动 Java 世界的进程</li>
+<li>zygote 虚拟机启动子进程 system_server，同时也可以看出zygote中定义了一个 Socket,绑定 666 端口，用于接收ActivityManagerService 启动应用程序的请求</li>
+<li>System_Server 进程 Binder 通信的基础，它还提供了 property service（属性服务），类似于 windows 系统的注册表服务</li>
+<li>系统里面重要的服务都是在这个进程里面开启的，例如 AMS, WindowsManager, PackageManagerService 等等都是由这个 System_Server fork 出来的</li>
+<li>在 System_Server 进程开启的时候，就会初始化 ActivityManagerService 。同时，会加载本地系统的服务库，调用createSystemContext() 创建系统上下文，创建 ActivityThread 及开启各种服务等等</li>
+<li>system_server 中开启了核心系统服务，并将系统服务添加到 ServiceManager 中，然后系统进入 SystemReady 状态</li>
+</ol>
+</blockquote>
+<p>启动Home Activity</p>
+<ol>
+<li>在systemReady状态，ActivityManagerService会与zygote的Socket通信，请求启动Home</li>
+<li>zygote收到AMS的连接请求后，执行runSelectLoopMode处理请求</li>
+<li>zygote处理请求会通过forkAndSpecialize启动新的应用进程，并最终启动Home</li>
+</ol>
+<blockquote>
+<ul>
+<li>概况</li>
+</ul>
+<ol>
+<li>系统加电，执行bootloader。Bootloader负责初始化软件运行的最小硬件环境，最后加载内核到内存</li>
+<li>内核加载到内存后，进入内核引导阶段，在内核引导的最后，调用start_kernel进入内核启动阶段。start_kernel最终启动用户空间的init程序</li>
+<li>init负责解析init.rc配置文件，开启系统守护进程。2个最重要的守护进程是zygote进程和serverManager进程。zygote是android启动的第一个Dalvik虚拟机，ServiceManager服务是Binder通信的基础</li>
+<li>zygote虚拟机启动子进程system_server，在system_server中启动了核心系统服务，并将系统服务添加到ServiceManager中，然后系统进入SystemReady状态</li>
+<li>在SystemReady状态，ActivityManagerService与zygote中的socket通信，通过zygote启动home应用，进入系统界面</li>
+</ol>
+<ul>
+<li>从步骤3开始, init启动后，上层的实现</li>
+</ul>
+<ol>
+<li>init启动的核心Daemon服务包括Android的第一个Dalvik虚拟机Zygote</li>
+<li>zygote定义一个socket,用于接受ActivityManangerService启动应用的请求</li>
+<li>zygote通过fork系统调用创建system_server进程</li>
+<li>在system_server进程中，将会启动系统核心服务以及其他服务</li>
+<li>系统服务启动后会注册到ServiceManager中，用于Binder通信</li>
+<li>ActivityManagerService进入systemReady状态</li>
+<li>在systemReady状态,ActivityManangerService会与zygote的Socket通信，请求启动Home</li>
+<li>zygote收到AMS的连接请求后，执行runSelectLoopMode处理请求</li>
+<li>zygote处理请求会通过forkAndSpecialize启动新的应用进程，并最终启动Home</li>
+</ol>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/App 启动流程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -258,7 +432,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/09/11/App 启动流程/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2019/09/11/App 启动流程/" itemprop="url">App 启动流程</a></h1>
         
 
         <div class="post-meta">
@@ -310,11 +484,7 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">title: App 启动流程</span><br></pre></td></tr></table></figure>
-
-<p><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">Next主题配置</a></p>
-<p>App 启动流程</p>
-<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/app_startup_process.jpg?raw=true" alt="流程图"></p>
+            <h2 id="App-启动流程"><a href="#App-启动流程" class="headerlink" title="App 启动流程"></a>App 启动流程</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/app_startup_process.jpg?raw=true" alt="流程图"></p>
 <ol>
 <li><p>点击桌面App图标,Launcher进程采用Binder IPC向system_server进程发起startActivity请求</p>
 </li>
@@ -965,7 +1135,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

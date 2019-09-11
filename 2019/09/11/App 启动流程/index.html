@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1title: App 启动流程  Next主题配置 App 启动流程   点击桌面App图标,Launcher进程采用Binder IPC向system_server进程发起startActivity请求  system_server进程接收到请求后,向zygote进程发送创建进程的请求  Zygote进程fork出新的子进程,即App进程  App进程,通过Binder IPC向sytem_s">
+<meta name="description" content="App 启动流程  点击桌面App图标,Launcher进程采用Binder IPC向system_server进程发起startActivity请求  system_server进程接收到请求后,向zygote进程发送创建进程的请求  Zygote进程fork出新的子进程,即App进程  App进程,通过Binder IPC向sytem_server进程发起attachApplication请求">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Song">
+<meta property="og:title" content="App 启动流程">
 <meta property="og:url" content="http://yoursite.com/2019/09/11/App 启动流程/index.html">
 <meta property="og:site_name" content="Song">
-<meta property="og:description" content="1title: App 启动流程  Next主题配置 App 启动流程   点击桌面App图标,Launcher进程采用Binder IPC向system_server进程发起startActivity请求  system_server进程接收到请求后,向zygote进程发送创建进程的请求  Zygote进程fork出新的子进程,即App进程  App进程,通过Binder IPC向sytem_s">
+<meta property="og:description" content="App 启动流程  点击桌面App图标,Launcher进程采用Binder IPC向system_server进程发起startActivity请求  system_server进程接收到请求后,向zygote进程发送创建进程的请求  Zygote进程fork出新的子进程,即App进程  App进程,通过Binder IPC向sytem_server进程发起attachApplication请求">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/app_startup_process.jpg?raw=true">
-<meta property="og:updated_time" content="2019-09-11T06:02:54.300Z">
+<meta property="og:updated_time" content="2019-09-11T06:11:23.076Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Song">
-<meta name="twitter:description" content="1title: App 启动流程  Next主题配置 App 启动流程   点击桌面App图标,Launcher进程采用Binder IPC向system_server进程发起startActivity请求  system_server进程接收到请求后,向zygote进程发送创建进程的请求  Zygote进程fork出新的子进程,即App进程  App进程,通过Binder IPC向sytem_s">
+<meta name="twitter:title" content="App 启动流程">
+<meta name="twitter:description" content="App 启动流程  点击桌面App图标,Launcher进程采用Binder IPC向system_server进程发起startActivity请求  system_server进程接收到请求后,向zygote进程发送创建进程的请求  Zygote进程fork出新的子进程,即App进程  App进程,通过Binder IPC向sytem_server进程发起attachApplication请求">
 <meta name="twitter:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/app_startup_process.jpg?raw=true">
 
 
@@ -127,7 +127,7 @@
 
 
 
-  <title> | Song</title>
+  <title>App 启动流程 | Song</title>
   
 
 
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">App 启动流程</h1>
         
 
         <div class="post-meta">
@@ -311,11 +311,7 @@
       
 
       
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">title: App 启动流程</span><br></pre></td></tr></table></figure>
-
-<p><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">Next主题配置</a></p>
-<p>App 启动流程</p>
-<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/app_startup_process.jpg?raw=true" alt="流程图"></p>
+        <h2 id="App-启动流程"><a href="#App-启动流程" class="headerlink" title="App 启动流程"></a>App 启动流程</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/app_startup_process.jpg?raw=true" alt="流程图"></p>
 <ol>
 <li><p>点击桌面App图标,Launcher进程采用Binder IPC向system_server进程发起startActivity请求</p>
 </li>
@@ -368,6 +364,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/09/11/Android 开机流程/" rel="prev" title="Android 开机流程">
+                Android 开机流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -418,8 +418,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -436,7 +445,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -463,6 +472,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#App-启动流程"><span class="nav-number">1.</span> <span class="nav-text">App 启动流程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
