@@ -87,7 +87,7 @@
 <meta property="og:description" content="概念 Message - Message 代表一个行为 what 或者一串动作 Runnable, 每一个消息在加入消息队列时,都有明确的目标 Handler MessageQueue - 以队列的形式对外提供插入和删除的工作, 其内部结构是以双向链表的形式存储消息的 Looper - Looper是循环的意思,它负责从消息队列中循环的取出消息然后把消息交给 Handler 处理 Handler">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_handler.jpg?raw=true">
-<meta property="og:updated_time" content="2019-09-11T07:03:18.180Z">
+<meta property="og:updated_time" content="2019-09-11T07:04:32.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fresco 入门">
 <meta name="twitter:description" content="概念 Message - Message 代表一个行为 what 或者一串动作 Runnable, 每一个消息在加入消息队列时,都有明确的目标 Handler MessageQueue - 以队列的形式对外提供插入和删除的工作, 其内部结构是以双向链表的形式存储消息的 Looper - Looper是循环的意思,它负责从消息队列中循环的取出消息然后把消息交给 Handler 处理 Handler">
@@ -319,12 +319,12 @@
 <p>ThreadLocal - 线程本地存储区（Thread Local Storage，简称为 TLS），每个线程都有自己的私有的本地存储区域，不同线程之间彼此不能访问对方的 TLS 区域。ThreadLocal的作用是提供线程内的局部变量 TLS,这种变量在线程的生命周期内起作用,每一个线程有他自己所属的值(线程隔离)</p>
 </blockquote>
 <p>普通的线程是没有looper的，如果需要looper对象，那么必须要先调用Looper.prepare方法，而且一个线程只能有一个looper</p>
-<h3 id="Handler是如何完成跨线程通信的"><a href="#Handler是如何完成跨线程通信的" class="headerlink" title="Handler是如何完成跨线程通信的"></a>Handler是如何完成跨线程通信的</h3><blockquote>
+<h2 id="Handler是如何完成跨线程通信的"><a href="#Handler是如何完成跨线程通信的" class="headerlink" title="Handler是如何完成跨线程通信的"></a>Handler是如何完成跨线程通信的</h2><blockquote>
 <p>Android中 采用的是 Linux中 的管道通信。关于管道，简单来说，管道就是一个文件。在管道的两端，分别是两个打开文件文件描述符，这两个打开文件描述符都是对应同一个文件，其中一个是用来读的，别一个是用来写的。</p>
 <p>消息队列创建时，会调用 JNI 函数，初始化 NativeMessageQueue 对象。NativeMessageQueue 则会初始化Looper 对象</p>
 <p>Looper 的作用是当 Java 层的消息队列中没有消息时，就使 Android 应用程序主线程进入等待状态，而当 Java 层的消息队列中来了新的消息后，就唤醒 Android 应用程序的主线程来处理这个消息</p>
 </blockquote>
-<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_handler.jpg?raw=true" alt></p>
+<h2 id="消息机制流程"><a href="#消息机制流程" class="headerlink" title="消息机制流程"></a>消息机制流程</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_handler.jpg?raw=true" alt></p>
 <ul>
 <li>Handler 通过 sendMessage() 发送 Message 到 MessageQueue 队列</li>
 <li>Looper 通过 loop()，不断提取出达到触发条件的 Message，并将 Message 交给 target 来处理</li>
@@ -479,7 +479,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Handler是如何完成跨线程通信的"><span class="nav-number">1.1.</span> <span class="nav-text">Handler是如何完成跨线程通信的</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handler是如何完成跨线程通信的"><span class="nav-number">2.</span> <span class="nav-text">Handler是如何完成跨线程通信的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息机制流程"><span class="nav-number">3.</span> <span class="nav-text">消息机制流程</span></a></li></ol></div>
             
 
           </div>
