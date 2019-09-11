@@ -79,17 +79,19 @@
 
 
 
-<meta name="description" content="Next主题配置">
+<meta name="description" content="概念 Message - Message 代表一个行为 what 或者一串动作 Runnable, 每一个消息在加入消息队列时,都有明确的目标 Handler MessageQueue - 以队列的形式对外提供插入和删除的工作, 其内部结构是以双向链表的形式存储消息的 Looper - Looper是循环的意思,它负责从消息队列中循环的取出消息然后把消息交给 Handler 处理 Handler">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Next主题配置">
-<meta property="og:url" content="http://yoursite.com/2019/07/30/Next主题配置/index.html">
+<meta property="og:title" content="Fresco 入门">
+<meta property="og:url" content="http://yoursite.com/2019/09/11/Handler 机制与底层实现原理/index.html">
 <meta property="og:site_name" content="Song">
-<meta property="og:description" content="Next主题配置">
+<meta property="og:description" content="概念 Message - Message 代表一个行为 what 或者一串动作 Runnable, 每一个消息在加入消息队列时,都有明确的目标 Handler MessageQueue - 以队列的形式对外提供插入和删除的工作, 其内部结构是以双向链表的形式存储消息的 Looper - Looper是循环的意思,它负责从消息队列中循环的取出消息然后把消息交给 Handler 处理 Handler">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-31T09:51:29.194Z">
+<meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_handler.jpg?raw=true">
+<meta property="og:updated_time" content="2019-09-11T07:03:18.180Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Next主题配置">
-<meta name="twitter:description" content="Next主题配置">
+<meta name="twitter:title" content="Fresco 入门">
+<meta name="twitter:description" content="概念 Message - Message 代表一个行为 what 或者一串动作 Runnable, 每一个消息在加入消息队列时,都有明确的目标 Handler MessageQueue - 以队列的形式对外提供插入和删除的工作, 其内部结构是以双向链表的形式存储消息的 Looper - Looper是循环的意思,它负责从消息队列中循环的取出消息然后把消息交给 Handler 处理 Handler">
+<meta name="twitter:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_handler.jpg?raw=true">
 
 
 
@@ -119,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/07/30/Next主题配置/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/11/Handler 机制与底层实现原理/">
 
 
 
 
 
-  <title>Next主题配置 | Song</title>
+  <title>Fresco 入门 | Song</title>
   
 
 
@@ -242,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/30/Next主题配置/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/Handler 机制与底层实现原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Songmingwen">
@@ -259,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Next主题配置</h1>
+          <h1 class="post-title" itemprop="name headline">Fresco 入门</h1>
         
 
         <div class="post-meta">
@@ -271,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-30T15:03:35+08:00">
-                2019-07-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T14:52:45+08:00">
+                2019-09-11
               </time>
             
 
@@ -309,7 +311,26 @@
       
 
       
-        <p><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">Next主题配置</a></p>
+        <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
+<p>Message - Message 代表一个行为 what 或者一串动作 Runnable, 每一个消息在加入消息队列时,都有明确的目标 Handler</p>
+<p>MessageQueue - 以队列的形式对外提供插入和删除的工作, 其内部结构是以双向链表的形式存储消息的</p>
+<p>Looper - Looper是循环的意思,它负责从消息队列中循环的取出消息然后把消息交给 Handler 处理</p>
+<p>Handler - 消息的真正处理者, 具备获取消息、发送消息、处理消息、移除消息等功能</p>
+<p>ThreadLocal - 线程本地存储区（Thread Local Storage，简称为 TLS），每个线程都有自己的私有的本地存储区域，不同线程之间彼此不能访问对方的 TLS 区域。ThreadLocal的作用是提供线程内的局部变量 TLS,这种变量在线程的生命周期内起作用,每一个线程有他自己所属的值(线程隔离)</p>
+</blockquote>
+<p>普通的线程是没有looper的，如果需要looper对象，那么必须要先调用Looper.prepare方法，而且一个线程只能有一个looper</p>
+<h3 id="Handler是如何完成跨线程通信的"><a href="#Handler是如何完成跨线程通信的" class="headerlink" title="Handler是如何完成跨线程通信的"></a>Handler是如何完成跨线程通信的</h3><blockquote>
+<p>Android中 采用的是 Linux中 的管道通信。关于管道，简单来说，管道就是一个文件。在管道的两端，分别是两个打开文件文件描述符，这两个打开文件描述符都是对应同一个文件，其中一个是用来读的，别一个是用来写的。</p>
+<p>消息队列创建时，会调用 JNI 函数，初始化 NativeMessageQueue 对象。NativeMessageQueue 则会初始化Looper 对象</p>
+<p>Looper 的作用是当 Java 层的消息队列中没有消息时，就使 Android 应用程序主线程进入等待状态，而当 Java 层的消息队列中来了新的消息后，就唤醒 Android 应用程序的主线程来处理这个消息</p>
+</blockquote>
+<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_handler.jpg?raw=true" alt></p>
+<ul>
+<li>Handler 通过 sendMessage() 发送 Message 到 MessageQueue 队列</li>
+<li>Looper 通过 loop()，不断提取出达到触发条件的 Message，并将 Message 交给 target 来处理</li>
+<li>经过 dispatchMessage() 后，交回给 Handler 的 handleMessage() 来进行相应地处理</li>
+<li>将 Message 加入 MessageQueue 时，处往管道写入字符，可以会唤醒 loop 线程；如果 MessageQueue 中没有 Message，并处于 Idle 状态，则会执行 IdelHandler 接口中的方法，往往用于做一些清理性地工作</li>
+</ul>
 
       
     </div>
@@ -334,8 +355,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/25/Fresco/" rel="next" title="Fresco 入门">
-                <i class="fa fa-chevron-left"></i> Fresco 入门
+              <a href="/2019/09/11/Android 开机流程/" rel="next" title="Android 开机流程">
+                <i class="fa fa-chevron-left"></i> Android 开机流程
               </a>
             
           </div>
@@ -343,10 +364,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/30/如何避免空指针/" rel="prev" title="如何避免空指针">
-                如何避免空指针 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -398,8 +415,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -443,6 +469,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Handler是如何完成跨线程通信的"><span class="nav-number">1.1.</span> <span class="nav-text">Handler是如何完成跨线程通信的</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
