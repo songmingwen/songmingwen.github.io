@@ -86,12 +86,12 @@
 <meta property="og:site_name" content="Song">
 <meta property="og:description" content="Android 开机流程 BootLoader引导当按开机键的时候，引导芯片开始从固化在ROM的预设代码开始执行，然后加载引导程序到RAMBootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序BootLoader负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存 启动Kernel这个入口的函数是start_kernel函数start_kernel函数执行到最后调用了re">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.jpg?raw=true">
-<meta property="og:updated_time" content="2019-09-11T06:40:25.035Z">
+<meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.png?raw=true">
+<meta property="og:updated_time" content="2019-09-11T06:43:06.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 开机流程">
 <meta name="twitter:description" content="Android 开机流程 BootLoader引导当按开机键的时候，引导芯片开始从固化在ROM的预设代码开始执行，然后加载引导程序到RAMBootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序BootLoader负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存 启动Kernel这个入口的函数是start_kernel函数start_kernel函数执行到最后调用了re">
-<meta name="twitter:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.jpg?raw=true">
+<meta name="twitter:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.png?raw=true">
 
 
 
@@ -311,7 +311,7 @@
       
 
       
-        <h2 id="Android-开机流程"><a href="#Android-开机流程" class="headerlink" title="Android 开机流程"></a>Android 开机流程</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.jpg?raw=true" alt="流程图"></p>
+        <h2 id="Android-开机流程"><a href="#Android-开机流程" class="headerlink" title="Android 开机流程"></a>Android 开机流程</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.png?raw=true" alt="流程图"></p>
 <h4 id="BootLoader引导"><a href="#BootLoader引导" class="headerlink" title="BootLoader引导"></a>BootLoader引导</h4><p>当按开机键的时候，引导芯片开始从固化在ROM的预设代码开始执行，然后加载引导程序到RAM<br>BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序<br>BootLoader负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存</p>
 <h4 id="启动Kernel"><a href="#启动Kernel" class="headerlink" title="启动Kernel"></a>启动Kernel</h4><p>这个入口的函数是start_kernel函数<br>start_kernel函数执行到最后调用了reset_init函数进行后续的初始化<br>start_kernel最终启动用户空间的init程序</p>
 <h4 id="启动Android"><a href="#启动Android" class="headerlink" title="启动Android"></a>启动Android</h4><p>当初始化内核之后，init进程负责解析init.rc配置文件, 就会启动一个相当重要的祖先进程，也就是init进程，在Linux中所有的进程都是由init进程直接或间接fork出来的</p>
