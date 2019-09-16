@@ -313,7 +313,7 @@
             <p>Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件</p>
 <p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.png?raw=true" alt></p>
 <ol>
-<li><p>Window 类时一个抽象类，提供绘制窗口的 API</p>
+<li><p>Window 类是一个抽象类，提供绘制窗口的 API</p>
 </li>
 <li><p>PhoneWindow 是继承 Window 的一个具体的类，该类内部包含了一个 DecorView 对象，该 DectorView 对象是所有应用窗口(Activity 界面)的根 View</p>
 </li>
@@ -335,7 +335,7 @@
 <p>layout，递归布局 view 的位置</p>
 <p>draw，递归绘制 view</p>
 <ul>
-<li>ViewRootImpl 中的代码会创建一个 Canvas 对象，然后调用 View的 draw() 方法来执行具体的绘制</li>
+<li>ViewRootImpl 中的代码会创建一个 Canvas 对象，然后调用 View 的 draw() 方法来执行具体的绘制</li>
 </ul>
 </blockquote>
 </li>
