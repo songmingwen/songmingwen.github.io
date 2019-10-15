@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="BootLoader引导 当按开机键的时候，引导芯片开始从固化在 ROM 的预设代码开始执行，然后加载引导程序到 RAM BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序，负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存  启动Kernel 入口的函数是 start_kernel 函数 start_kernel 函数执行到最后调用了 reset_init 函数">
+<meta name="description" content="BootLoader 引导 当按开机键的时候，引导芯片开始从固化在 ROM 的预设代码开始执行，然后加载引导程序到 RAM BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序，负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存  启动 Kernel 入口的函数是 start_kernel 函数 start_kernel 函数执行到最后调用了 reset_init">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 开机流程">
 <meta property="og:url" content="http://yoursite.com/2019/09/11/Android 开机流程/index.html">
 <meta property="og:site_name" content="Song">
-<meta property="og:description" content="BootLoader引导 当按开机键的时候，引导芯片开始从固化在 ROM 的预设代码开始执行，然后加载引导程序到 RAM BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序，负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存  启动Kernel 入口的函数是 start_kernel 函数 start_kernel 函数执行到最后调用了 reset_init 函数">
+<meta property="og:description" content="BootLoader 引导 当按开机键的时候，引导芯片开始从固化在 ROM 的预设代码开始执行，然后加载引导程序到 RAM BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序，负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存  启动 Kernel 入口的函数是 start_kernel 函数 start_kernel 函数执行到最后调用了 reset_init">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.png?raw=true">
-<meta property="og:updated_time" content="2019-09-11T06:51:50.735Z">
+<meta property="og:updated_time" content="2019-10-15T05:52:08.145Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 开机流程">
-<meta name="twitter:description" content="BootLoader引导 当按开机键的时候，引导芯片开始从固化在 ROM 的预设代码开始执行，然后加载引导程序到 RAM BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序，负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存  启动Kernel 入口的函数是 start_kernel 函数 start_kernel 函数执行到最后调用了 reset_init 函数">
+<meta name="twitter:description" content="BootLoader 引导 当按开机键的时候，引导芯片开始从固化在 ROM 的预设代码开始执行，然后加载引导程序到 RAM BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序，负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存  启动 Kernel 入口的函数是 start_kernel 函数 start_kernel 函数执行到最后调用了 reset_init">
 <meta name="twitter:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.png?raw=true">
 
 
@@ -312,16 +312,16 @@
 
       
         <p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.png?raw=true" alt="流程图"></p>
-<h2 id="BootLoader引导"><a href="#BootLoader引导" class="headerlink" title="BootLoader引导"></a>BootLoader引导</h2><ul>
+<h2 id="BootLoader-引导"><a href="#BootLoader-引导" class="headerlink" title="BootLoader 引导"></a>BootLoader 引导</h2><ul>
 <li>当按开机键的时候，引导芯片开始从固化在 ROM 的预设代码开始执行，然后加载引导程序到 RAM</li>
 <li>BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序，负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存</li>
 </ul>
-<h2 id="启动Kernel"><a href="#启动Kernel" class="headerlink" title="启动Kernel"></a>启动Kernel</h2><ul>
+<h2 id="启动-Kernel"><a href="#启动-Kernel" class="headerlink" title="启动 Kernel"></a>启动 Kernel</h2><ul>
 <li>入口的函数是 start_kernel 函数</li>
 <li>start_kernel 函数执行到最后调用了 reset_init 函数进行后续的初始化</li>
 <li>start_kernel 最终启动用户空间的 init 程序</li>
 </ul>
-<h2 id="启动Android"><a href="#启动Android" class="headerlink" title="启动Android"></a>启动Android</h2><p>当初始化内核之后，init 进程负责解析 init.rc 配置文件, 就会启动一个相当重要的祖先进程，也就是 init 进程，在 Linux 中所有的进程都是由 init 进程直接或间接 fork 出来的</p>
+<h2 id="启动-Android"><a href="#启动-Android" class="headerlink" title="启动 Android"></a>启动 Android</h2><p>当初始化内核之后，init 进程负责解析 init.rc 配置文件, 就会启动一个相当重要的祖先进程，也就是 init 进程，在 Linux 中所有的进程都是由 init 进程直接或间接 fork 出来的</p>
 <blockquote>
 <ul>
 <li>/system/bin/app_process_Zygote 服务启动的进程名</li>
@@ -341,7 +341,7 @@
 <li>system_server 中开启了核心系统服务，并将系统服务添加到 ServiceManager 中，然后系统进入 SystemReady 状态</li>
 </ol>
 </blockquote>
-<h3 id="启动Home-Activity"><a href="#启动Home-Activity" class="headerlink" title="启动Home Activity"></a>启动Home Activity</h3><ol>
+<h3 id="启动-Home-Activity"><a href="#启动-Home-Activity" class="headerlink" title="启动 Home Activity"></a>启动 Home Activity</h3><ol>
 <li>在systemReady状态，ActivityManagerService 会与 zygote 的 Socket 通信，请求启动 Home</li>
 <li>zygote 收到 AMS 的连接请求后，执行 runSelectLoopMode 处理请求</li>
 <li>zygote 处理请求会通过 forkAndSpecialize 启动新的应用进程，并最终启动 Home</li>
@@ -524,7 +524,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BootLoader引导"><span class="nav-number">1.</span> <span class="nav-text">BootLoader引导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Kernel"><span class="nav-number">2.</span> <span class="nav-text">启动Kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动Android"><span class="nav-number">3.</span> <span class="nav-text">启动Android</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Home-Activity"><span class="nav-number">3.1.</span> <span class="nav-text">启动Home Activity</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BootLoader-引导"><span class="nav-number">1.</span> <span class="nav-text">BootLoader 引导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-Kernel"><span class="nav-number">2.</span> <span class="nav-text">启动 Kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-Android"><span class="nav-number">3.</span> <span class="nav-text">启动 Android</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-Home-Activity"><span class="nav-number">3.1.</span> <span class="nav-text">启动 Home Activity</span></a></li></ol></li></ol></div>
             
 
           </div>
