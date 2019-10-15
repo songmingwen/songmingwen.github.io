@@ -87,7 +87,7 @@
 <meta property="og:description" content="Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件   Window 类是一个抽象类，提供绘制窗口的 API">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.png?raw=true">
-<meta property="og:updated_time" content="2019-09-16T02:35:47.257Z">
+<meta property="og:updated_time" content="2019-10-15T06:01:10.869Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android View 绘制原理">
 <meta name="twitter:description" content="Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件   Window 类是一个抽象类，提供绘制窗口的 API">
@@ -316,7 +316,7 @@
 <ol>
 <li><p>Window 类是一个抽象类，提供绘制窗口的 API</p>
 </li>
-<li><p>PhoneWindow 是继承 Window 的一个具体的类，该类内部包含了一个 DecorView 对象，该 DectorView 对象是所有应用窗口(Activity 界面)的根 View</p>
+<li><p>PhoneWindow 是继承 Window 的一个具体的类，该类内部包含了一个 DecorView 对象，该 DecorView 对象是所有应用窗口(Activity 界面)的根 View</p>
 </li>
 <li><p>DecorView 继承 FrameLayout，里面 id=content 的就是我们传入的布局视图</p>
 </li>
