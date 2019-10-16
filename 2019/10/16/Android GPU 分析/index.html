@@ -89,7 +89,7 @@
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/Android_HWUI_setting.png?raw=true">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_gpu_analysis.png?raw=true">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/gpu-overdraw-before_2x.png?raw=true">
-<meta property="og:updated_time" content="2019-10-16T04:00:19.114Z">
+<meta property="og:updated_time" content="2019-10-16T04:01:47.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android GPU 分析">
 <meta name="twitter:description" content="启动开发者 GPU 分析模式Android 开发者选项中开启 HWUI 模式分析会出现如下视图，这些颜色代表什么含义，三条水平线又是什么含义呢？  Profile GPU 渲染速度分析以下是有关输出的一些注意事项：  对于每个可见的应用程序，该工具都会显示一个图形。 沿水平轴的每个垂直条代表一个框架，每个垂直条的高度代表该框架渲染所需的时间（以毫秒为单位）。 水平的绿线表示 16 毫秒。为了达到每">
@@ -324,12 +324,13 @@
 <li>每个条都有彩色的组件，这些组件映射到渲染管线中的某个阶段。组件的数量取决于设备的API级别。</li>
 </ul>
 <p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_gpu_analysis.png?raw=true" alt="柱状图分析"></p>
-<p>官方网站：<a href="https://developer.android.google.cn/topic/performance/rendering/profile-gpu?hl=en" target="_blank" rel="noopener">https://developer.android.google.cn/topic/performance/rendering/profile-gpu?hl=en</a></p>
+<p>官方网址：<a href="https://developer.android.google.cn/topic/performance/rendering/profile-gpu?hl=en" target="_blank" rel="noopener">https://developer.android.google.cn/topic/performance/rendering/profile-gpu?hl=en</a></p>
 <h2 id="可视化-GPU-覆盖"><a href="#可视化-GPU-覆盖" class="headerlink" title="可视化 GPU 覆盖"></a>可视化 GPU 覆盖</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/gpu-overdraw-before_2x.png?raw=true" alt="一个正常显示的应用程序（左）和启用了GPU Overdraw的显示应用程序（右）">一个正常显示的应用程序（左）和启用了 GPU Overdraw 的显示应用程序（右）</p>
 <p>蓝色：过度绘制一层</p>
 <p>绿色：过度绘制两层</p>
 <p>粉红：过度绘制三层</p>
 <p>红色：过度绘制四层</p>
+<p>官方网址：<a href="https://developer.android.google.cn/studio/profile/inspect-gpu-rendering?hl=en#debug_overdraw" target="_blank" rel="noopener">https://developer.android.google.cn/studio/profile/inspect-gpu-rendering?hl=en#debug_overdraw</a></p>
 
       
     </div>
