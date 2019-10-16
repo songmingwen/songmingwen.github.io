@@ -79,19 +79,20 @@
 
 
 
-<meta name="description" content="启动开发者 GPU 分析模式Android 开发者选项中开启 HWUI 模式分析会出现如下视图，这些颜色代表什么含义，三条水平线又是什么含义呢？  视图含义解释以下是有关输出的一些注意事项：  对于每个可见的应用程序，该工具都会显示一个图形。 沿水平轴的每个垂直条代表一个框架，每个垂直条的高度代表该框架渲染所需的时间（以毫秒为单位）。 水平的绿线表示16毫秒。为了达到每秒60帧，每帧的竖线必须保持">
+<meta name="description" content="启动开发者 GPU 分析模式Android 开发者选项中开启 HWUI 模式分析会出现如下视图，这些颜色代表什么含义，三条水平线又是什么含义呢？  Profile GPU 渲染速度分析以下是有关输出的一些注意事项：  对于每个可见的应用程序，该工具都会显示一个图形。 沿水平轴的每个垂直条代表一个框架，每个垂直条的高度代表该框架渲染所需的时间（以毫秒为单位）。 水平的绿线表示 16 毫秒。为了达到每">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android GPU 分析">
 <meta property="og:url" content="http://yoursite.com/2019/10/16/Android GPU 分析/index.html">
 <meta property="og:site_name" content="Song">
-<meta property="og:description" content="启动开发者 GPU 分析模式Android 开发者选项中开启 HWUI 模式分析会出现如下视图，这些颜色代表什么含义，三条水平线又是什么含义呢？  视图含义解释以下是有关输出的一些注意事项：  对于每个可见的应用程序，该工具都会显示一个图形。 沿水平轴的每个垂直条代表一个框架，每个垂直条的高度代表该框架渲染所需的时间（以毫秒为单位）。 水平的绿线表示16毫秒。为了达到每秒60帧，每帧的竖线必须保持">
+<meta property="og:description" content="启动开发者 GPU 分析模式Android 开发者选项中开启 HWUI 模式分析会出现如下视图，这些颜色代表什么含义，三条水平线又是什么含义呢？  Profile GPU 渲染速度分析以下是有关输出的一些注意事项：  对于每个可见的应用程序，该工具都会显示一个图形。 沿水平轴的每个垂直条代表一个框架，每个垂直条的高度代表该框架渲染所需的时间（以毫秒为单位）。 水平的绿线表示 16 毫秒。为了达到每">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_HWUI_setting.png?raw=true">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_gpu_analysis.png?raw=true">
-<meta property="og:updated_time" content="2019-10-16T03:53:01.866Z">
+<meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/gpu-overdraw-before_2x.png?raw=true">
+<meta property="og:updated_time" content="2019-10-16T03:59:09.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android GPU 分析">
-<meta name="twitter:description" content="启动开发者 GPU 分析模式Android 开发者选项中开启 HWUI 模式分析会出现如下视图，这些颜色代表什么含义，三条水平线又是什么含义呢？  视图含义解释以下是有关输出的一些注意事项：  对于每个可见的应用程序，该工具都会显示一个图形。 沿水平轴的每个垂直条代表一个框架，每个垂直条的高度代表该框架渲染所需的时间（以毫秒为单位）。 水平的绿线表示16毫秒。为了达到每秒60帧，每帧的竖线必须保持">
+<meta name="twitter:description" content="启动开发者 GPU 分析模式Android 开发者选项中开启 HWUI 模式分析会出现如下视图，这些颜色代表什么含义，三条水平线又是什么含义呢？  Profile GPU 渲染速度分析以下是有关输出的一些注意事项：  对于每个可见的应用程序，该工具都会显示一个图形。 沿水平轴的每个垂直条代表一个框架，每个垂直条的高度代表该框架渲染所需的时间（以毫秒为单位）。 水平的绿线表示 16 毫秒。为了达到每">
 <meta name="twitter:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_HWUI_setting.png?raw=true">
 
 
@@ -313,17 +314,22 @@
 
       
         <h2 id="启动开发者-GPU-分析模式"><a href="#启动开发者-GPU-分析模式" class="headerlink" title="启动开发者 GPU 分析模式"></a>启动开发者 GPU 分析模式</h2><p>Android 开发者选项中开启 HWUI 模式分析会出现如下视图，这些颜色代表什么含义，三条水平线又是什么含义呢？</p>
-<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_HWUI_setting.png?raw=true" alt="流程图"></p>
-<h2 id="视图含义解释"><a href="#视图含义解释" class="headerlink" title="视图含义解释"></a>视图含义解释</h2><p>以下是有关输出的一些注意事项：</p>
+<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_HWUI_setting.png?raw=true" alt="开启后视图展示"></p>
+<h2 id="Profile-GPU-渲染速度分析"><a href="#Profile-GPU-渲染速度分析" class="headerlink" title="Profile GPU 渲染速度分析"></a>Profile GPU 渲染速度分析</h2><p>以下是有关输出的一些注意事项：</p>
 <ul>
 <li>对于每个可见的应用程序，该工具都会显示一个图形。</li>
 <li>沿水平轴的每个垂直条代表一个框架，每个垂直条的高度代表该框架渲染所需的时间（以毫秒为单位）。</li>
-<li>水平的绿线表示16毫秒。为了达到每秒60帧，每帧的竖线必须保持在此线以下。每当横条超过此行时，动画中可能会有暂停。</li>
-<li>该工具通过使相应的条变得更宽和更不透明来突出显示超过16毫秒阈值的帧。</li>
+<li>水平的绿线表示 16 毫秒。为了达到每秒 60 帧，每帧的竖线必须保持在此线以下。每当横条超过此行时，动画中可能会有暂停。</li>
+<li>该工具通过使相应的条变得更宽和更不透明来突出显示超过 16 毫秒阈值的帧。</li>
 <li>每个条都有彩色的组件，这些组件映射到渲染管线中的某个阶段。组件的数量取决于设备的API级别。</li>
 </ul>
-<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_gpu_analysis.png?raw=true" alt="流程图"></p>
+<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_gpu_analysis.png?raw=true" alt="柱状图分析"></p>
 <p>官方网站：<a href="https://developer.android.google.cn/topic/performance/rendering/profile-gpu?hl=en" target="_blank" rel="noopener">https://developer.android.google.cn/topic/performance/rendering/profile-gpu?hl=en</a></p>
+<h2 id="可视化-GPU-覆盖"><a href="#可视化-GPU-覆盖" class="headerlink" title="可视化 GPU 覆盖"></a>可视化 GPU 覆盖</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/gpu-overdraw-before_2x.png?raw=true" alt="一个正常显示的应用程序（左）和启用了GPU Overdraw的显示应用程序（右）">一个正常显示的应用程序（左）和启用了 GPU Overdraw 的显示应用程序（右）</p>
+<p>蓝色：过度绘制一层</p>
+<p>绿色：过度绘制两层</p>
+<p>粉红：过度绘制三层</p>
+<p>红色：过度绘制四层</p>
 
       
     </div>
@@ -472,7 +478,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动开发者-GPU-分析模式"><span class="nav-number">1.</span> <span class="nav-text">启动开发者 GPU 分析模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图含义解释"><span class="nav-number">2.</span> <span class="nav-text">视图含义解释</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动开发者-GPU-分析模式"><span class="nav-number">1.</span> <span class="nav-text">启动开发者 GPU 分析模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Profile-GPU-渲染速度分析"><span class="nav-number">2.</span> <span class="nav-text">Profile GPU 渲染速度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化-GPU-覆盖"><span class="nav-number">3.</span> <span class="nav-text">可视化 GPU 覆盖</span></a></li></ol></div>
             
 
           </div>
