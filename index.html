@@ -981,7 +981,7 @@
 <li>Handler 通过 sendMessage() 发送 Message 到 MessageQueue 队列</li>
 <li>Looper 通过 loop()，不断提取出达到触发条件的 Message，并将 Message 交给 target 来处理</li>
 <li>经过 dispatchMessage() 后，交回给 Handler 的 handleMessage() 来进行相应地处理</li>
-<li>将 Message 加入 MessageQueue 时，处往管道写入字符，可以会唤醒 loop 线程；如果 MessageQueue 中没有 Message，并处于 Idle 状态，则会执行 IdelHandler 接口中的方法，往往用于做一些清理性地工作</li>
+<li>将 Message 加入 MessageQueue 时，往管道写入字符，可以会唤醒 loop 线程；如果 MessageQueue 中没有 Message，并处于 Idle 状态，则会执行 IdelHandler 接口中的方法，往往用于做一些清理性地工作</li>
 </ul>
 
           
@@ -1570,7 +1570,7 @@
 <h3 id="其他的代码规范化写法"><a href="#其他的代码规范化写法" class="headerlink" title="其他的代码规范化写法"></a>其他的代码规范化写法</h3><p>&emsp;&emsp; 1）、避免不安全的链式调用：eg：object.getA().getB().getC();</p>
 <p>&emsp;&emsp; 2）、多次使用的判空可以提成一个通用的方法。</p>
 <h2 id="测试阶段"><a href="#测试阶段" class="headerlink" title="测试阶段"></a>测试阶段</h2><h3 id="使用-FindBugs-扫描文件，检查代码安全性"><a href="#使用-FindBugs-扫描文件，检查代码安全性" class="headerlink" title="使用 FindBugs 扫描文件，检查代码安全性"></a>使用 FindBugs 扫描文件，检查代码安全性</h3><p>&emsp;&emsp; FindBugs 不仅仅检查空指针，它能够全面的检查代码质量</p>
-<h3 id="Monkey-测试"><a href="#Monkey-测试" class="headerlink" title="Monkey 测试"></a>Monkey 测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell monkey -pcom.zhihu.android -v 30000</span><br></pre></td></tr></table></figure>
+<h3 id="Monkey-测试"><a href="#Monkey-测试" class="headerlink" title="Monkey 测试"></a>Monkey 测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell monkey -p com.zhihu.android -v 30000</span><br></pre></td></tr></table></figure>
 
 <h3 id="最终由-QA-做最后的检查"><a href="#最终由-QA-做最后的检查" class="headerlink" title="最终由 QA 做最后的检查"></a>最终由 QA 做最后的检查</h3><h2 id="换编程语言-kotlin-？"><a href="#换编程语言-kotlin-？" class="headerlink" title="换编程语言 kotlin ？"></a>换编程语言 <a href="https://www.kotlincn.net/docs/reference/" target="_blank" rel="noopener">kotlin</a> ？</h2>
           

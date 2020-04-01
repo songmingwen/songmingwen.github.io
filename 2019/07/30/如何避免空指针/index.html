@@ -88,7 +88,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/find_bugs_warings.png?raw=true">
 <meta property="og:image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/find_bugs_settings.png?raw=true">
-<meta property="og:updated_time" content="2019-08-06T05:54:25.514Z">
+<meta property="og:updated_time" content="2020-04-01T08:35:31.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何避免空指针">
 <meta name="twitter:description" content="开发阶段使用 android annotations 注解库&amp;emsp;&amp;emsp; @Nullable：Denotes that a parameter, field or method return value can be null. &amp;emsp;&amp;emsp; @NonNull：Denotes that a parameter, field or method return value ca">
@@ -328,7 +328,7 @@
 <h3 id="其他的代码规范化写法"><a href="#其他的代码规范化写法" class="headerlink" title="其他的代码规范化写法"></a>其他的代码规范化写法</h3><p>&emsp;&emsp; 1）、避免不安全的链式调用：eg：object.getA().getB().getC();</p>
 <p>&emsp;&emsp; 2）、多次使用的判空可以提成一个通用的方法。</p>
 <h2 id="测试阶段"><a href="#测试阶段" class="headerlink" title="测试阶段"></a>测试阶段</h2><h3 id="使用-FindBugs-扫描文件，检查代码安全性"><a href="#使用-FindBugs-扫描文件，检查代码安全性" class="headerlink" title="使用 FindBugs 扫描文件，检查代码安全性"></a>使用 FindBugs 扫描文件，检查代码安全性</h3><p>&emsp;&emsp; FindBugs 不仅仅检查空指针，它能够全面的检查代码质量</p>
-<h3 id="Monkey-测试"><a href="#Monkey-测试" class="headerlink" title="Monkey 测试"></a>Monkey 测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell monkey -pcom.zhihu.android -v 30000</span><br></pre></td></tr></table></figure>
+<h3 id="Monkey-测试"><a href="#Monkey-测试" class="headerlink" title="Monkey 测试"></a>Monkey 测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell monkey -p com.zhihu.android -v 30000</span><br></pre></td></tr></table></figure>
 
 <h3 id="最终由-QA-做最后的检查"><a href="#最终由-QA-做最后的检查" class="headerlink" title="最终由 QA 做最后的检查"></a>最终由 QA 做最后的检查</h3><h2 id="换编程语言-kotlin-？"><a href="#换编程语言-kotlin-？" class="headerlink" title="换编程语言 kotlin ？"></a>换编程语言 <a href="https://www.kotlincn.net/docs/reference/" target="_blank" rel="noopener">kotlin</a> ？</h2>
       
