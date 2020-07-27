@@ -239,6 +239,211 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/27/并发编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Songmingwen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/avatar.png?raw=true">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/07/27/并发编程/" itemprop="url">RecyclerView 缓存机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-07-27T11:30:15+08:00">
+                2020-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h2><p>在并发编程中，我们通常会遇到以下三个问题：原子性问题，可见性问题，有序性问题</p>
+<ul>
+<li>原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行</li>
+<li>可见性:是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</li>
+<li>有序性：在 Java 内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会影响到多线程并发执行的正确性。</li>
+</ul>
+<p>要想并发程序正确地执行，必须要保证原子性、可见性以及有序性。只要有一个没有被保证，就有可能会导致程序运行不正确。</p>
+<h3 id="锁的相关概念介绍"><a href="#锁的相关概念介绍" class="headerlink" title="锁的相关概念介绍"></a>锁的相关概念介绍</h3><ul>
+<li><p>可重入锁</p>
+<p>如果锁具备可重入性，则称作为可重入锁。像 synchronized 和 ReentrantLock 都是可重入锁，可重入性在我看来实际上表明了锁的分配机制：基于线程的分配，而不是基于方法调用的分配。</p>
+</li>
+<li><p>可中断锁</p>
+<p>可中断锁：顾名思义，就是可以相应中断的锁。</p>
+<p>在Java中，synchronized 就不是可中断锁，而 Lock 是可中断锁。</p>
+<p>如果某一线程A正在执行锁中的代码，另一线程B正在等待获取该锁，可能由于等待时间过长，线程 B 不想等待了，想先处理其他事情，我们可以让它中断自己或者在别的线程中中断它，这种就是可中断锁。</p>
+<p>lockInterruptibly() 的用法时已经体现了 Lock 的可中断性。</p>
+</li>
+<li><p>公平锁</p>
+<p>公平锁即尽量以请求锁的顺序来获取锁。比如同是有多个线程在等待一个锁，当这个锁被释放时，等待时间最久的线程（最先请求的线程）会获得该所，这种就是公平锁。</p>
+<p>非公平锁即无法保证锁的获取是按照请求锁的顺序进行的。这样就可能导致某个或者一些线程永远获取不到锁。</p>
+<p>在 Java中，synchronized 就是非公平锁，它无法保证等待的线程获取锁的顺序。</p>
+<p>而对于 ReentrantLock 和 ReentrantReadWriteLock，它默认情况下是非公平锁，但是可以设置为公平锁。</p>
+</li>
+<li><p>读写锁</p>
+<p>读写锁将对一个资源（比如文件）的访问分成了 2 个锁，一个读锁和一个写锁。</p>
+<p>正因为有了读写锁，才使得多个线程之间的读操作不会发生冲突。</p>
+<p>ReadWriteLock 就是读写锁，它是一个接口，ReentrantReadWriteLock 实现了这个接口。</p>
+<p>可以通过 readLock() 获取读锁，通过 writeLock() 获取写锁。</p>
+</li>
+</ul>
+<h3 id="Synchronized"><a href="#Synchronized" class="headerlink" title="Synchronized"></a>Synchronized</h3><ul>
+<li>在 java 虚拟机中，每个对象和类在逻辑上都是和一个监视器相关联的。对于对象来说，相关联的监视器保护对象的实例变量。 对于类来说，监视器保护类的类变量</li>
+<li>为了实现监视器的排他性监视能力，java 虚拟机为每一个对象和类都关联一个锁。代表任何时候只允许一个线程拥有的特权。线程访问实例变量或者类变量不需锁。 如果某个线程获取了锁，那么在它释放该锁之前其他线程是不可能获取同样锁的</li>
+<li>修辞同步方法，锁是当前实例对象<br>修辞同步方法块，锁是 Synchonized 括号里配置的对象<br>修辞静态同步方法，锁是当前对象的 Class 对象</li>
+</ul>
+<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><ul>
+<li>背景：Java 内存模型规定所有的变量都是存在主存当中（类似物理内存），每个线程都有自己的工作内存（类似高速缓存）。线程对变量的所有操作都必须在工作内存中进行，而不能直接对主存进行操作。并且每个线程不能访问其他线程的工作内存。执行线程必须先在自己的工作线程中对变量 i 所在的缓存行进行赋值操作，然后再写入主存当中。而不是直接将数值 10 写入主存当中。</li>
+<li>Java 中的 volatile 关键字提供了一个功能，那就是被其修饰的变量在被修改后可以立即同步到主内存，被其修饰的变量在每次是用之前都从主内存刷新。因此，可以使用 volatile 来保证多线程操作时变量的可见性。</li>
+<li>一旦一个共享变量（类的成员变量、类的静态成员变量）被 volatile 修饰之后，那么就具备了两层语义：<br>　　1）保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。<br>　　2）禁止进行指令重排序。</li>
+<li>volatile 关键字来保证「可见性」和「有序性」</li>
+</ul>
+<h3 id="wait-和-sleep-区别"><a href="#wait-和-sleep-区别" class="headerlink" title="wait 和 sleep 区别"></a>wait 和 sleep 区别</h3><p>1、sleep方法是 Thread 类的静态方法；<br>wait方法是 Object 类的成员方法</p>
+<p>2、sleep 方法使当前线程暂停执行指定的时间，让出 cpu 给其他线程，但是它的监控状态依然保持着，当指定的时间到了又会自动恢复运行状态。在调用 sleep 方法后，线程不会释放对象锁；<br>而当调用 wait 方法时，线程会放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象调用 notify() 方法后本线程才进入对象锁定池处于准备状态。</p>
+<p>3、sleep 方法有可能会抛出异常，所以需要进行异常处理；<br>wait 方法不需要处理</p>
+<p>4、sleep 方法可以在任何地方使用；<br>wait 方法只能在同步方法和同步代码块中使用</p>
+<h3 id="Lock-和-synchronized-的不同"><a href="#Lock-和-synchronized-的不同" class="headerlink" title="Lock 和 synchronized 的不同"></a>Lock 和 synchronized 的不同</h3><ul>
+<li>Lock 是一个接口，而 synchronized 是 Java 中的关键字，synchronized 是内置的语言实现；</li>
+<li>synchronized 在发生异常时，会自动释放线程占有的锁，因此不会导致死锁现象发生；而 Lock 在发生异常时，如果没有主动通过 unLock() 去释放锁，则很可能造成死锁现象，因此使用 Lock 时需要在 finally 块中释放锁；</li>
+<li>Lock 可以让等待锁的线程响应中断，而 synchronized 却不行，使用 synchronized 时，等待的线程会一直等待下去，不能够响应中断；</li>
+<li>通过 Lock 可以知道有没有成功获取锁，而 synchronized 却无法办到。</li>
+<li>Lock 可以提高多个线程进行读操作的效率。</li>
+<li>在性能上来说，如果竞争资源不激烈，两者的性能是差不多的，而当竞争资源非常激烈时（即有大量线程同时竞争），此时 Lock 的性能要远远优于 synchronized。所以说，在具体使用时要根据适当情况选择。</li>
+</ul>
+<h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Lock</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">lockInterruptibly</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">(<span class="keyword">long</span> time, TimeUnit unit)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">Condition <span class="title">newCondition</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>lock()：平常使用得最多的一个方法，就是用来获取锁。如果锁已被其他线程获取，则进行等待。如果采用 Lock，必须主动去释放锁，并且在发生异常时，不会自动释放锁。因此一般来说，使用 Lock 必须在 try{}catch{} 块中进行，并且将释放锁的操作放在 finally 块中进行，以保证锁一定被被释放，防止死锁的发生。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Lock lock = ...;</span><br><span class="line">lock.lock();</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="comment">//处理任务</span></span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception ex)&#123;</span><br><span class="line">     </span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">    lock.unlock();   <span class="comment">//释放锁</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>tryLock()：有返回值的，它表示用来尝试获取锁，如果获取成功，则返回 true，如果获取失败（即锁已被其他线程获取），则返回 false，也就说这个方法无论如何都会立即返回。在拿不到锁时不会一直在那等待。</li>
+<li>tryLock(long time, TimeUnit unit)：和 tryLock() 方法是类似的，只不过区别在于这个方法在拿不到锁时会等待一定的时间，在时间期限之内如果还拿不到锁，就返回 false。如果如果一开始拿到锁或者在等待期间内拿到了锁，则返回true。</li>
+<li>lockInterruptibly()：比较特殊，当通过这个方法去获取锁时，如果线程正在等待获取锁，则这个线程能够响应中断，即中断线程的等待状态。也就使说，当两个线程同时通过 lock.lockInterruptibly() 想获取某个锁时，假若此时线程 A 获取到了锁，而线程 B 只有在等待，那么对线程 B 调用 threadB.interrupt() 方法能够中断线程 B 的等待过程。由于lockInterruptibly() 的声明中抛出了异常，所以 lock.lockInterruptibly() 必须放在 try 块中或者在调用 lockInterruptibly() 的方法外声明抛出 InterruptedException。</li>
+</ul>
+<p>ReentrantLock，意思是“可重入锁”，关于可重入锁的概念在下一节讲述。ReentrantLock 是唯一实现了 Lock 接口的类，并且 ReentrantLock 提供了更多的方法。</p>
+<h2 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ReadWriteLock</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the lock used for reading.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the lock used for reading.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Lock <span class="title">readLock</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the lock used for writing.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the lock used for writing.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Lock <span class="title">writeLock</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个用来获取读锁，一个用来获取写锁。也就是说将文件的读写操作分开，分成 2 个锁来分配给线程，从而使得多个线程可以同时进行读操作。ReentrantReadWriteLock 实现了 ReadWriteLock 接口。readLock() 和 writeLock() 用来获取读锁和写锁。</p>
+<h3 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h3><p>Condition 是在 java1.5 中才出现的，它用来替代传统的 Object 的 wait()、notify() 实现线程间的协作，相比使用 Object 的wait()、notify()，使用 Condition1 的 await()、signal() 这种方式实现线程间协作更加安全和高效。因此通常来说比较推荐使用 Condition，在阻塞队列那一篇博文中就讲述到了，阻塞队列实际上是使用了 Condition 来模拟线程间协作。</p>
+<ul>
+<li>Condition 是个接口，基本的方法就是 await() 和 signal() 方法；</li>
+<li>Condition 依赖于 Lock 接口，生成一个 Condition 的基本代码是 lock.newCondition()</li>
+<li>调用 Condition 的 await() 和 signal() 方法，都必须在 lock 保护之内，就是说必须在 lock.lock() 和 lock.unlock 之间才可以使用</li>
+<li>Conditon 中的 await() 对应 Object 的 wait()；<br>Condition 中的 signal() 对应 Object 的 notify()；<br>Condition 中的 signalAll() 对应 Object 的 notifyAll()。</li>
+</ul>
+<h3 id="阻塞队列"><a href="#阻塞队列" class="headerlink" title="阻塞队列"></a>阻塞队列</h3><p>阻塞队列其实就是生产者-消费者模型中的容器<br>当生产者往队列中添加元素时，如果队列已经满了，生产者所在的线程就会阻塞，直到消费者取元素时 notify 它；<br>消费者去队列中取元素时，如果队列中是空的，消费者所在的线程就会阻塞，直到生产者放入元素 notify 它。</p>
+<ul>
+<li>ArrayBlockingQueue:是一个使用数组实现的、有界的队列，一旦创建后，容量不可变。队列中的元素按 FIFO 的顺序，每次取元素从头部取，加元素加到尾部。<br>默认情况下 ArrayBlockingQueue 不保证线程公平的访问队列，即在队列可用时，阻塞的线程都可以争夺访问队列的资格。<br>ArrayBlockingQueue 使用可重入锁 ReentrantLock 控制队列的访问，两个 Condition 实现生产者-消费者模型，看起来很简单的样子，这背后要感谢 ReentrantLock 和 Condition 的功劳！</li>
+<li>LinkedBlockingQueue: 是一个使用链表实现的、有界阻塞队列。队列的默认最大长度为 Integer.MAX_VALUE，添加的元素按 FIFO 顺序。LinkedBlockingQueue 比 ArrayBlockingQueue 的优势就是添加和获取是两个不同的锁，所以并发添加/获取效率更高些，因此数组元素个数用的是 AtomicInteger 类型的，这样在添加、获取时通过判断数组元素个数可以感知到并发的获取/添加操作 ；此外就是链表比数组的优势了。</li>
+<li>PriorityBlockingQueue:PriorityBlockingQueue 是基于数组的、支持优先级的、无界阻塞队列。<br>默认情况下队列中的元素按自然排序升序排列，我们可以实现元素的 compareTo() 指定元素的排序规则，或者在初始化它时在构造函数中传递 Comparator 排序规则。PriorityBlockingQueue 为什么是无界、有优先级的队列了。因为它可以扩容，在添加、删除元素后都会进行排序。</li>
+<li>DelayQueue:是一个支持延时获取元素的、无界阻塞队列。队列使用 PriorityQueue 实现</li>
+<li>SynchronousQueue:支持公平访问队列，根据构造函数的参数不同，有两种实现方式：TransferQueue 和 TransferStack，默认情况下是 false：SynchronousQueue 是一个不存储元素的阻塞队列。<br>这里的“不存储元素”指的是，SynchronousQueue容量为0，每添加一个元素必须等待被取走后才能继续添加元素。</li>
+<li>LinkedTransferQueue:是一种阻塞队列，它用于生产者需要等待消费者消费事件的场景，与前面一节的 SynchronousQueue 有相似之处。</li>
+<li>LinkedBlockingDeque:是一个由链表组成的、双向阻塞队列。</li>
+</ul>
+<h3 id="手写阻塞队列"><a href="#手写阻塞队列" class="headerlink" title="手写阻塞队列"></a>手写阻塞队列</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BoundedBuffer</span> </span>&#123;  </span><br><span class="line">   <span class="keyword">final</span> Lock lock = <span class="keyword">new</span> ReentrantLock();  </span><br><span class="line">   <span class="keyword">final</span> Condition notFull  = lock.newCondition();   </span><br><span class="line">   <span class="keyword">final</span> Condition notEmpty = lock.newCondition();   </span><br><span class="line">  </span><br><span class="line">   <span class="keyword">final</span> Object[] items = <span class="keyword">new</span> Object[<span class="number">100</span>];  </span><br><span class="line">   <span class="keyword">int</span> putptr, takeptr, count;  </span><br><span class="line">  </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(Object x)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;  </span><br><span class="line">     lock.lock();  </span><br><span class="line">     <span class="keyword">try</span> &#123;  </span><br><span class="line">       <span class="keyword">while</span> (count == items.length)   </span><br><span class="line">         notFull.await();  </span><br><span class="line">       items[putptr] = x;   </span><br><span class="line">       <span class="keyword">if</span> (++putptr == items.length) putptr = <span class="number">0</span>;  </span><br><span class="line">       ++count;  </span><br><span class="line">       notEmpty.signal();  </span><br><span class="line">     &#125; <span class="keyword">finally</span> &#123;  </span><br><span class="line">       lock.unlock();  </span><br><span class="line">     &#125;  </span><br><span class="line">   &#125;  </span><br><span class="line">  </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">take</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;  </span><br><span class="line">     lock.lock();  </span><br><span class="line">     <span class="keyword">try</span> &#123;  </span><br><span class="line">       <span class="keyword">while</span> (count == <span class="number">0</span>)   </span><br><span class="line">         notEmpty.await();  </span><br><span class="line">       Object x = items[takeptr];   </span><br><span class="line">       <span class="keyword">if</span> (++takeptr == items.length) takeptr = <span class="number">0</span>;  </span><br><span class="line">       --count;  </span><br><span class="line">       notFull.signal();  </span><br><span class="line">       <span class="keyword">return</span> x;  </span><br><span class="line">     &#125; <span class="keyword">finally</span> &#123;  </span><br><span class="line">       lock.unlock();  </span><br><span class="line">     &#125;  </span><br><span class="line">   &#125;   </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/10/RecyclerView/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1456,186 +1661,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/Android 开机流程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Songmingwen">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/avatar.png?raw=true">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Song">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/11/Android 开机流程/" itemprop="url">Android 开机流程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T14:09:59+08:00">
-                2019-09-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_on_process.png?raw=true" alt="流程图"></p>
-<h2 id="BootLoader-引导"><a href="#BootLoader-引导" class="headerlink" title="BootLoader 引导"></a>BootLoader 引导</h2><ul>
-<li>当按开机键的时候，引导芯片开始从固化在 ROM 的预设代码开始执行，然后加载引导程序到 RAM</li>
-<li>BootLoader，又称为引导程序。它是在操作系统运行之前运行的一段程序，负责初始化软件运行所需要的最小硬件环境，最后加载内核到内存</li>
-</ul>
-<h2 id="启动-Kernel"><a href="#启动-Kernel" class="headerlink" title="启动 Kernel"></a>启动 Kernel</h2><ul>
-<li>入口的函数是 start_kernel 函数</li>
-<li>start_kernel 函数执行到最后调用了 reset_init 函数进行后续的初始化</li>
-<li>start_kernel 最终启动用户空间的 init 程序</li>
-</ul>
-<h2 id="启动-Android"><a href="#启动-Android" class="headerlink" title="启动 Android"></a>启动 Android</h2><p>当初始化内核之后，init 进程负责解析 init.rc 配置文件, 就会启动一个相当重要的祖先进程，也就是 init 进程，在 Linux 中所有的进程都是由 init 进程直接或间接 fork 出来的</p>
-<blockquote>
-<ul>
-<li>/system/bin/app_process_Zygote 服务启动的进程名</li>
-<li>–start-system-server 表明 Zygote 启动完成后，需要启动 System_Server 进程</li>
-<li>socket zygote stream 666 在 Zygote 启动时，创建一个权限为 666 的 socket。此 socket 用来请求 zygote 创建新进程</li>
-<li>socket 的 fd 保存在名称为”ANDROID_SOCKET_zygote”的环境变量中</li>
-</ul>
-</blockquote>
-<p>init 进程负责创建系统中最关键的几个核心 daemon (守护)进程，尤其是 zygote 和 System_Server 进程</p>
-<blockquote>
-<ol>
-<li>zygote 进程 android 启动的第一个 Dalvik 虚拟机，它将负责启动 Java 世界的进程</li>
-<li>zygote 虚拟机启动子进程 system_server，同时也可以看出zygote中定义了一个 Socket,绑定 666 端口，用于接收ActivityManagerService 启动应用程序的请求</li>
-<li>System_Server 进程 Binder 通信的基础，它还提供了 property service（属性服务），类似于 windows 系统的注册表服务</li>
-<li>系统里面重要的服务都是在这个进程里面开启的，例如 AMS, WindowsManager, PackageManagerService 等等都是由这个 System_Server fork 出来的</li>
-<li>在 System_Server 进程开启的时候，就会初始化 ActivityManagerService 。同时，会加载本地系统的服务库，调用createSystemContext() 创建系统上下文，创建 ActivityThread 及开启各种服务等等</li>
-<li>system_server 中开启了核心系统服务，并将系统服务添加到 ServiceManager 中，然后系统进入 SystemReady 状态</li>
-</ol>
-</blockquote>
-<h3 id="启动-Home-Activity"><a href="#启动-Home-Activity" class="headerlink" title="启动 Home Activity"></a>启动 Home Activity</h3><ol>
-<li>在systemReady状态，ActivityManagerService 会与 zygote 的 Socket 通信，请求启动 Home</li>
-<li>zygote 收到 AMS 的连接请求后，执行 runSelectLoopMode 处理请求</li>
-<li>zygote 处理请求会通过 forkAndSpecialize 启动新的应用进程，并最终启动 Home</li>
-</ol>
-<blockquote>
-<ul>
-<li>概况</li>
-</ul>
-<ol>
-<li>系统加电，执行 bootloader。Bootloade r负责初始化软件运行的最小硬件环境，最后加载内核到内存</li>
-<li>内核加载到内存后，进入内核引导阶段，在内核引导的最后，调用 start_kernel 进入内核启动阶段。start_kernel 最终启动用户空间的 init 程序</li>
-<li>init 负责解析 init.rc 配置文件，开启系统守护进程。2 个最重要的守护进程是 zygote 进程和 serverManager进程。zygote 是 android 启动的第一个 Dalvik 虚拟机，ServiceManager 服务是 Binder 通信的基础</li>
-<li>zygote 虚拟机启动子进程 system_server，在 system_server 中启动了核心系统服务，并将系统服务添加到ServiceManager 中，然后系统进入 SystemReady 状态</li>
-<li>在 SystemReady 状态，ActivityManagerService 与 zygote 中的 socket 通信，通过 zygote 启动 home 应用，进入系统界面</li>
-</ol>
-<ul>
-<li>从步骤3开始, init启动后，上层的实现</li>
-</ul>
-<ol>
-<li>init 启动的核心 Daemon 服务包括 Android 的第一个 Dalvik 虚拟机 Zygote</li>
-<li>zygote 定义一个 socket,用于接受 ActivityManangerService 启动应用的请求</li>
-<li>zygote 通过 fork 系统调用创建 system_server 进程</li>
-<li>在 system_server 进程中，将会启动系统核心服务以及其他服务</li>
-<li>系统服务启动后会注册到 ServiceManager 中，用于 Binder 通信</li>
-<li>ActivityManagerService 进入 systemReady 状态</li>
-<li>在 systemReady 状态,ActivityManangerService 会与 zygote的Socket 通信，请求启动 Home</li>
-<li>zygote 收到 AMS 的连接请求后，执行 runSelectLoopMode 处理请求</li>
-<li>zygote 处理请求会通过 forkAndSpecialize 启动新的应用进程，并最终启动 Home</li>
-</ol>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1688,7 +1713,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
