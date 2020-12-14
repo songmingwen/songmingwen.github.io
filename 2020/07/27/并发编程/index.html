@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="并发编程在并发编程中，我们通常会遇到以下三个问题：原子性问题，可见性问题，有序性问题  原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行 可见性:是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。 有序性：在 Java 内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会">
+<meta name="description" content="并发编程在并发编程中，我们通常会遇到以下三个问题：原子性问题，可见性问题，有序性问题  原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行 可见性：是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。 有序性：在 Java 内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并发编程">
 <meta property="og:url" content="http://yoursite.com/2020/07/27/并发编程/index.html">
 <meta property="og:site_name" content="Song">
-<meta property="og:description" content="并发编程在并发编程中，我们通常会遇到以下三个问题：原子性问题，可见性问题，有序性问题  原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行 可见性:是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。 有序性：在 Java 内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会">
+<meta property="og:description" content="并发编程在并发编程中，我们通常会遇到以下三个问题：原子性问题，可见性问题，有序性问题  原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行 可见性：是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。 有序性：在 Java 内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-07-27T06:43:49.117Z">
+<meta property="og:updated_time" content="2020-11-30T06:38:36.341Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="并发编程">
-<meta name="twitter:description" content="并发编程在并发编程中，我们通常会遇到以下三个问题：原子性问题，可见性问题，有序性问题  原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行 可见性:是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。 有序性：在 Java 内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会">
+<meta name="twitter:description" content="并发编程在并发编程中，我们通常会遇到以下三个问题：原子性问题，可见性问题，有序性问题  原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行 可见性：是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。 有序性：在 Java 内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会">
 
 
 
@@ -312,7 +312,7 @@
         <h2 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h2><p>在并发编程中，我们通常会遇到以下三个问题：原子性问题，可见性问题，有序性问题</p>
 <ul>
 <li>原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行</li>
-<li>可见性:是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</li>
+<li>可见性：是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</li>
 <li>有序性：在 Java 内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会影响到多线程并发执行的正确性。</li>
 </ul>
 <p>要想并发程序正确地执行，必须要保证原子性、可见性以及有序性。只要有一个没有被保证，就有可能会导致程序运行不正确。</p>
@@ -347,7 +347,7 @@
 <h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><ul>
 <li>背景：Java 内存模型规定所有的变量都是存在主存当中（类似物理内存），每个线程都有自己的工作内存（类似高速缓存）。线程对变量的所有操作都必须在工作内存中进行，而不能直接对主存进行操作。并且每个线程不能访问其他线程的工作内存。执行线程必须先在自己的工作线程中对变量 i 所在的缓存行进行赋值操作，然后再写入主存当中。而不是直接将数值 10 写入主存当中。</li>
 <li>Java 中的 volatile 关键字提供了一个功能，那就是被其修饰的变量在被修改后可以立即同步到主内存，被其修饰的变量在每次是用之前都从主内存刷新。因此，可以使用 volatile 来保证多线程操作时变量的可见性。</li>
-<li>一旦一个共享变量（类的成员变量、类的静态成员变量）被 volatile 修饰之后，那么就具备了两层语义：<br>　　1）保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。<br>　　2）禁止进行指令重排序。</li>
+<li>一旦一个共享变量（类的成员变量、类的静态成员变量）被 volatile 修饰之后，那么就具备了两层语义：<br>　　1）保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。<br>  　　2）禁止进行指令重排序。</li>
 <li>volatile 关键字来保证「可见性」和「有序性」</li>
 </ul>
 <h3 id="wait-和-sleep-区别"><a href="#wait-和-sleep-区别" class="headerlink" title="wait 和 sleep 区别"></a>wait 和 sleep 区别</h3><p>1、sleep方法是 Thread 类的静态方法；<br>wait方法是 Object 类的成员方法</p>
@@ -376,7 +376,7 @@
 <h2 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ReadWriteLock</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the lock used for reading.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the lock used for reading.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Lock <span class="title">readLock</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the lock used for writing.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the lock used for writing.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Lock <span class="title">writeLock</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>一个用来获取读锁，一个用来获取写锁。也就是说将文件的读写操作分开，分成 2 个锁来分配给线程，从而使得多个线程可以同时进行读操作。ReentrantReadWriteLock 实现了 ReadWriteLock 接口。readLock() 和 writeLock() 用来获取读锁和写锁。</p>
-<h3 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h3><p>Condition 是在 java1.5 中才出现的，它用来替代传统的 Object 的 wait()、notify() 实现线程间的协作，相比使用 Object 的wait()、notify()，使用 Condition1 的 await()、signal() 这种方式实现线程间协作更加安全和高效。因此通常来说比较推荐使用 Condition，在阻塞队列那一篇博文中就讲述到了，阻塞队列实际上是使用了 Condition 来模拟线程间协作。</p>
+<h3 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h3><p>Condition 是在 java1.5 中才出现的，它用来替代传统的 Object 的 wait()、notify() 实现线程间的协作，相比使用 Object 的wait()、notify()，使用 Condition 的 await()、signal() 这种方式实现线程间协作更加安全和高效。因此通常来说比较推荐使用 Condition，阻塞队列实际上是使用了 Condition 来模拟线程间协作。</p>
 <ul>
 <li>Condition 是个接口，基本的方法就是 await() 和 signal() 方法；</li>
 <li>Condition 依赖于 Lock 接口，生成一个 Condition 的基本代码是 lock.newCondition()</li>
@@ -428,6 +428,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/14/Handler 内存泄漏及解决方案/" rel="prev" title="Handler 内存泄漏及解决方案">
+                Handler 内存泄漏及解决方案 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -506,7 +510,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

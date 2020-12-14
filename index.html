@@ -239,6 +239,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/14/Handler 内存泄漏及解决方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Songmingwen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/avatar.png?raw=true">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/12/14/Handler 内存泄漏及解决方案/" itemprop="url">Handler 内存泄漏及解决方案</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-14T11:06:15+08:00">
+                2020-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在 Java 中非静态内部类或者匿名内部类都是默认持有外部类的引用的，这两个内部类的存在是依赖于外部类的对象的。</p>
+<h3 id="Handler-导致-activity-内存泄露的原因"><a href="#Handler-导致-activity-内存泄露的原因" class="headerlink" title="Handler 导致 activity 内存泄露的原因"></a>Handler 导致 activity 内存泄露的原因</h3><p>​        handler 发送的消息在当前 handler 的消息队列中，如果此时 activity finish 掉了，那么消息队列的消息依旧会由handler 进行处理，若此时 handler 声明为内部类（非静态内部类），我们知道内部类天然持有外部类的实例引用，这样在 GC 垃圾回收机制进行回收时发现这个 Activity 居然还有其他引用存在，因而就不会去回收这个 Activity，进而导致 activity 泄露。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>​        由于 handler 定义为内部类，可能会阻止 GC。如果handler的 Looper 或 MessageQueue 非主线程，那么没有问题。如果 handler 的 Looper 或 MessageQueue 在主线程，那么需要按如下定义：定义 handler 为静态内部类，当你实例化 handler 的时候，传入一个外部类的弱引用，以便通过弱引用使用外部类的所有成员</p>
+<h4 id="Handler-要定义为-static？"><a href="#Handler-要定义为-static？" class="headerlink" title="Handler 要定义为 static？"></a>Handler 要定义为 static？</h4><p>​        因为静态内部类不持有外部类的引用，所以使用静态的 handler 不会导致 activity 的泄露</p>
+<h4 id="Handler-要定义为-static-的同时，还要用-WeakReference-包裹外部类的对象？"><a href="#Handler-要定义为-static-的同时，还要用-WeakReference-包裹外部类的对象？" class="headerlink" title="Handler 要定义为 static 的同时，还要用 WeakReference 包裹外部类的对象？"></a>Handler 要定义为 static 的同时，还要用 WeakReference 包裹外部类的对象？</h4><p>​        这是因为我们需要使用外部类的成员，可以通过 “activity. “ 获取变量方法等，如果直接使用强引用，显然会导致 activity 泄露。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/27/并发编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -313,7 +437,7 @@
             <h2 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h2><p>在并发编程中，我们通常会遇到以下三个问题：原子性问题，可见性问题，有序性问题</p>
 <ul>
 <li>原子性：即一个操作或者多个操作 要么全部执行并且执行的过程不会被任何因素打断，要么就都不执行</li>
-<li>可见性:是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</li>
+<li>可见性：是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</li>
 <li>有序性：在 Java 内存模型中，允许编译器和处理器对指令进行重排序，但是重排序过程不会影响到单线程程序的执行，却会影响到多线程并发执行的正确性。</li>
 </ul>
 <p>要想并发程序正确地执行，必须要保证原子性、可见性以及有序性。只要有一个没有被保证，就有可能会导致程序运行不正确。</p>
@@ -348,7 +472,7 @@
 <h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><ul>
 <li>背景：Java 内存模型规定所有的变量都是存在主存当中（类似物理内存），每个线程都有自己的工作内存（类似高速缓存）。线程对变量的所有操作都必须在工作内存中进行，而不能直接对主存进行操作。并且每个线程不能访问其他线程的工作内存。执行线程必须先在自己的工作线程中对变量 i 所在的缓存行进行赋值操作，然后再写入主存当中。而不是直接将数值 10 写入主存当中。</li>
 <li>Java 中的 volatile 关键字提供了一个功能，那就是被其修饰的变量在被修改后可以立即同步到主内存，被其修饰的变量在每次是用之前都从主内存刷新。因此，可以使用 volatile 来保证多线程操作时变量的可见性。</li>
-<li>一旦一个共享变量（类的成员变量、类的静态成员变量）被 volatile 修饰之后，那么就具备了两层语义：<br>　　1）保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。<br>　　2）禁止进行指令重排序。</li>
+<li>一旦一个共享变量（类的成员变量、类的静态成员变量）被 volatile 修饰之后，那么就具备了两层语义：<br>　　1）保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。<br>  　　2）禁止进行指令重排序。</li>
 <li>volatile 关键字来保证「可见性」和「有序性」</li>
 </ul>
 <h3 id="wait-和-sleep-区别"><a href="#wait-和-sleep-区别" class="headerlink" title="wait 和 sleep 区别"></a>wait 和 sleep 区别</h3><p>1、sleep方法是 Thread 类的静态方法；<br>wait方法是 Object 类的成员方法</p>
@@ -377,7 +501,7 @@
 <h2 id="ReadWriteLock"><a href="#ReadWriteLock" class="headerlink" title="ReadWriteLock"></a>ReadWriteLock</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ReadWriteLock</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the lock used for reading.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the lock used for reading.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Lock <span class="title">readLock</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the lock used for writing.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the lock used for writing.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">Lock <span class="title">writeLock</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>一个用来获取读锁，一个用来获取写锁。也就是说将文件的读写操作分开，分成 2 个锁来分配给线程，从而使得多个线程可以同时进行读操作。ReentrantReadWriteLock 实现了 ReadWriteLock 接口。readLock() 和 writeLock() 用来获取读锁和写锁。</p>
-<h3 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h3><p>Condition 是在 java1.5 中才出现的，它用来替代传统的 Object 的 wait()、notify() 实现线程间的协作，相比使用 Object 的wait()、notify()，使用 Condition1 的 await()、signal() 这种方式实现线程间协作更加安全和高效。因此通常来说比较推荐使用 Condition，在阻塞队列那一篇博文中就讲述到了，阻塞队列实际上是使用了 Condition 来模拟线程间协作。</p>
+<h3 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h3><p>Condition 是在 java1.5 中才出现的，它用来替代传统的 Object 的 wait()、notify() 实现线程间的协作，相比使用 Object 的wait()、notify()，使用 Condition 的 await()、signal() 这种方式实现线程间协作更加安全和高效。因此通常来说比较推荐使用 Condition，阻塞队列实际上是使用了 Condition 来模拟线程间协作。</p>
 <ul>
 <li>Condition 是个接口，基本的方法就是 await() 和 signal() 方法；</li>
 <li>Condition 依赖于 Lock 接口，生成一个 Condition 的基本代码是 lock.newCondition()</li>
@@ -1533,145 +1657,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/Handler 机制与底层实现原理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Songmingwen">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/avatar.png?raw=true">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Song">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/11/Handler 机制与底层实现原理/" itemprop="url">Handler 机制与底层实现原理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T14:52:45+08:00">
-                2019-09-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><blockquote>
-<p>Message - Message 代表一个行为 what 或者一串动作 Runnable, 每一个消息在加入消息队列时,都有明确的目标 Handler</p>
-<p>MessageQueue - 以队列的形式对外提供插入和删除的工作, 其内部结构是以双向链表的形式存储消息的</p>
-<p>Looper - Looper 是循环的意思,它负责从消息队列中循环的取出消息然后把消息交给 Handler 处理</p>
-<p>Handler - 消息的真正处理者, 具备获取消息、发送消息、处理消息、移除消息等功能</p>
-<p>ThreadLocal - 线程本地存储区（Thread Local Storage，简称为 TLS），每个线程都有自己的私有的本地存储区域，不同线程之间彼此不能访问对方的 TLS 区域。ThreadLocal 的作用是提供线程内的局部变量 TLS,这种变量在线程的生命周期内起作用,每一个线程有他自己所属的值(线程隔离)</p>
-</blockquote>
-<p>普通的线程是没有 looper 的，如果需要 looper 对象，那么必须要先调用 Looper.prepare 方法，而且一个线程只能有一个 looper</p>
-<h2 id="Handler-是如何完成跨线程通信的"><a href="#Handler-是如何完成跨线程通信的" class="headerlink" title="Handler 是如何完成跨线程通信的"></a>Handler 是如何完成跨线程通信的</h2><blockquote>
-<p>Android 中采用的是 Linux 中 的管道通信。关于管道，简单来说，管道就是一个文件。在管道的两端，分别是两个打开文件文件描述符，这两个打开文件描述符都是对应同一个文件，其中一个是用来读的，别一个是用来写的。</p>
-<p>消息队列创建时，会调用 JNI 函数，初始化 NativeMessageQueue 对象。NativeMessageQueue 则会初始化Looper 对象</p>
-<p>Looper 的作用是当 Java 层的消息队列中没有消息时，就使 Android 应用程序主线程进入等待状态，而当 Java 层的消息队列中来了新的消息后，就唤醒 Android 应用程序的主线程来处理这个消息</p>
-</blockquote>
-<h2 id="消息机制流程"><a href="#消息机制流程" class="headerlink" title="消息机制流程"></a>消息机制流程</h2><p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_handler.jpg?raw=true" alt></p>
-<ul>
-<li>Handler 通过 sendMessage() 发送 Message 到 MessageQueue 队列</li>
-<li>Looper 通过 loop()，不断提取出达到触发条件的 Message，并将 Message 交给 target 来处理</li>
-<li>经过 dispatchMessage() 后，交回给 Handler 的 handleMessage() 来进行相应地处理</li>
-<li>将 Message 加入 MessageQueue 时，往管道写入字符，可以会唤醒 loop 线程；如果 MessageQueue 中没有 Message，并处于 Idle 状态，则会执行 IdelHandler 接口中的方法，往往用于做一些清理性地工作</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1724,7 +1709,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

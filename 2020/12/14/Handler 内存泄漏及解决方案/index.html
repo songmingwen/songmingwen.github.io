@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="安装升级123npm install hexo -g	#安装  $ npm update hexo -g	#升级  $ hexo init 		#初始化  常用命令简写及含义1234567$ hexo n &quot;博客&quot; = hexo new &quot;博客&quot;	#新建文章$ hexo g = hexo generate		#该命令执行后在hexo站点根目录下生成 public 文件夹$ hexo clean">
+<meta name="description" content="在 Java 中非静态内部类或者匿名内部类都是默认持有外部类的引用的，这两个内部类的存在是依赖于外部类的对象的。 Handler 导致 activity 内存泄露的原因​        handler 发送的消息在当前 handler 的消息队列中，如果此时 activity finish 掉了，那么消息队列的消息依旧会由handler 进行处理，若此时 handler 声明为内部类（非静态内部类">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo 常用命令">
-<meta property="og:url" content="http://yoursite.com/2019/10/15/Hexo 常用命令/index.html">
+<meta property="og:title" content="Handler 内存泄漏及解决方案">
+<meta property="og:url" content="http://yoursite.com/2020/12/14/Handler 内存泄漏及解决方案/index.html">
 <meta property="og:site_name" content="Song">
-<meta property="og:description" content="安装升级123npm install hexo -g	#安装  $ npm update hexo -g	#升级  $ hexo init 		#初始化  常用命令简写及含义1234567$ hexo n &quot;博客&quot; = hexo new &quot;博客&quot;	#新建文章$ hexo g = hexo generate		#该命令执行后在hexo站点根目录下生成 public 文件夹$ hexo clean">
+<meta property="og:description" content="在 Java 中非静态内部类或者匿名内部类都是默认持有外部类的引用的，这两个内部类的存在是依赖于外部类的对象的。 Handler 导致 activity 内存泄露的原因​        handler 发送的消息在当前 handler 的消息队列中，如果此时 activity finish 掉了，那么消息队列的消息依旧会由handler 进行处理，若此时 handler 声明为内部类（非静态内部类">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-04-28T09:39:54.876Z">
+<meta property="og:updated_time" content="2020-12-14T03:19:06.602Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo 常用命令">
-<meta name="twitter:description" content="安装升级123npm install hexo -g	#安装  $ npm update hexo -g	#升级  $ hexo init 		#初始化  常用命令简写及含义1234567$ hexo n &quot;博客&quot; = hexo new &quot;博客&quot;	#新建文章$ hexo g = hexo generate		#该命令执行后在hexo站点根目录下生成 public 文件夹$ hexo clean">
+<meta name="twitter:title" content="Handler 内存泄漏及解决方案">
+<meta name="twitter:description" content="在 Java 中非静态内部类或者匿名内部类都是默认持有外部类的引用的，这两个内部类的存在是依赖于外部类的对象的。 Handler 导致 activity 内存泄露的原因​        handler 发送的消息在当前 handler 的消息队列中，如果此时 activity finish 掉了，那么消息队列的消息依旧会由handler 进行处理，若此时 handler 声明为内部类（非静态内部类">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/10/15/Hexo 常用命令/">
+  <link rel="canonical" href="http://yoursite.com/2020/12/14/Handler 内存泄漏及解决方案/">
 
 
 
 
 
-  <title>Hexo 常用命令 | Song</title>
+  <title>Handler 内存泄漏及解决方案 | Song</title>
   
 
 
@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/15/Hexo 常用命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/14/Handler 内存泄漏及解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Songmingwen">
@@ -259,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo 常用命令</h1>
+          <h1 class="post-title" itemprop="name headline">Handler 内存泄漏及解决方案</h1>
         
 
         <div class="post-meta">
@@ -271,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-15T11:17:22+08:00">
-                2019-10-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-14T11:06:15+08:00">
+                2020-12-14
               </time>
             
 
@@ -309,10 +309,11 @@
       
 
       
-        <h2 id="安装升级"><a href="#安装升级" class="headerlink" title="安装升级"></a>安装升级</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g	<span class="comment">#安装  </span></span><br><span class="line">$ npm update hexo -g	<span class="comment">#升级  </span></span><br><span class="line">$ hexo init 		<span class="comment">#初始化</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常用命令简写及含义"><a href="#常用命令简写及含义" class="headerlink" title="常用命令简写及含义"></a>常用命令简写及含义</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n <span class="string">"博客"</span> = hexo new <span class="string">"博客"</span>	<span class="comment">#新建文章</span></span><br><span class="line">$ hexo g = hexo generate		<span class="comment">#该命令执行后在hexo站点根目录下生成 public 文件夹</span></span><br><span class="line">$ hexo clean			<span class="comment">#删除public文件夹</span></span><br><span class="line">$ hexo s = hexo server		<span class="comment">#启动服务预览	ctrl + c 退出服务预览</span></span><br><span class="line">$ hexo d = hexo deploy		<span class="comment">#部署站点，在本地生成 .deploy_git 文件夹，并将编译后的文件上传至 GitHub</span></span><br><span class="line">$ hexo d -g			<span class="comment">#合并写法</span></span><br><span class="line">$ hexo new [layout] &lt;title&gt;	<span class="comment">#例如：$ hexo new photo "my-first-blog"上述指令执行时，Hexo 会尝试在 scaffolds 中寻找 photo.md 布局，若找到，则根据该布局新建文章；若未找到或指令中未指定该参数，则使用 post.md 新建文章。新建文章的名称在 _config.yml 中配置</span></span><br></pre></td></tr></table></figure>
-
+        <p>在 Java 中非静态内部类或者匿名内部类都是默认持有外部类的引用的，这两个内部类的存在是依赖于外部类的对象的。</p>
+<h3 id="Handler-导致-activity-内存泄露的原因"><a href="#Handler-导致-activity-内存泄露的原因" class="headerlink" title="Handler 导致 activity 内存泄露的原因"></a>Handler 导致 activity 内存泄露的原因</h3><p>​        handler 发送的消息在当前 handler 的消息队列中，如果此时 activity finish 掉了，那么消息队列的消息依旧会由handler 进行处理，若此时 handler 声明为内部类（非静态内部类），我们知道内部类天然持有外部类的实例引用，这样在 GC 垃圾回收机制进行回收时发现这个 Activity 居然还有其他引用存在，因而就不会去回收这个 Activity，进而导致 activity 泄露。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>​        由于 handler 定义为内部类，可能会阻止 GC。如果handler的 Looper 或 MessageQueue 非主线程，那么没有问题。如果 handler 的 Looper 或 MessageQueue 在主线程，那么需要按如下定义：定义 handler 为静态内部类，当你实例化 handler 的时候，传入一个外部类的弱引用，以便通过弱引用使用外部类的所有成员</p>
+<h4 id="Handler-要定义为-static？"><a href="#Handler-要定义为-static？" class="headerlink" title="Handler 要定义为 static？"></a>Handler 要定义为 static？</h4><p>​        因为静态内部类不持有外部类的引用，所以使用静态的 handler 不会导致 activity 的泄露</p>
+<h4 id="Handler-要定义为-static-的同时，还要用-WeakReference-包裹外部类的对象？"><a href="#Handler-要定义为-static-的同时，还要用-WeakReference-包裹外部类的对象？" class="headerlink" title="Handler 要定义为 static 的同时，还要用 WeakReference 包裹外部类的对象？"></a>Handler 要定义为 static 的同时，还要用 WeakReference 包裹外部类的对象？</h4><p>​        这是因为我们需要使用外部类的成员，可以通过 “activity. “ 获取变量方法等，如果直接使用强引用，显然会导致 activity 泄露。</p>
 
       
     </div>
@@ -337,8 +338,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/11/Android 绘制原理/" rel="next" title="Android View 绘制原理">
-                <i class="fa fa-chevron-left"></i> Android View 绘制原理
+              <a href="/2020/07/27/并发编程/" rel="next" title="并发编程">
+                <i class="fa fa-chevron-left"></i> 并发编程
               </a>
             
           </div>
@@ -346,10 +347,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/16/Android GPU 分析/" rel="prev" title="Android GPU 分析">
-                Android GPU 分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -465,7 +462,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装升级"><span class="nav-number">1.</span> <span class="nav-text">安装升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令简写及含义"><span class="nav-number">2.</span> <span class="nav-text">常用命令简写及含义</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Handler-导致-activity-内存泄露的原因"><span class="nav-number">1.</span> <span class="nav-text">Handler 导致 activity 内存泄露的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">2.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Handler-要定义为-static？"><span class="nav-number">2.1.</span> <span class="nav-text">Handler 要定义为 static？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Handler-要定义为-static-的同时，还要用-WeakReference-包裹外部类的对象？"><span class="nav-number">2.2.</span> <span class="nav-text">Handler 要定义为 static 的同时，还要用 WeakReference 包裹外部类的对象？</span></a></li></ol></li></ol></div>
             
 
           </div>
