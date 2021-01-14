@@ -239,6 +239,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/01/14/git 常用命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Songmingwen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/avatar.png?raw=true">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/01/14/git 常用命令/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-14T17:56:49+08:00">
+                2021-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<p>Git、gradle 常用命令</p>
+<hr>
+<p>###合并多个commit</p>
+<p>例子：有待合并的多个commit：001，002，003，004，005</p>
+<p>1、reset 到 001 &gt;&gt;&gt;&gt; git add &gt;&gt;&gt; git commit —amend &gt;&gt;&gt; push 代码；</p>
+<p>###打标签</p>
+<p>git tag -a v1.4 -m ‘my version 1.4’</p>
+<p>git push origin v1.4</p>
+<p>###新增关联远程分支</p>
+<p>git remote add remoteBranchName 仓库地址</p>
+<p>e.g: git remote add remoteName(名字随意取) <a href="https://github.com/songmingwen/News-Comic-Reader.git" target="_blank" rel="noopener">https://github.com/songmingwen/News-Comic-Reader.git</a></p>
+<p>###同步指定远程分支代码到本地分支 </p>
+<p>git pull –rebase &lt;远程主机名&gt; &lt;远程分支名&gt;</p>
+<p>e.g: git pull —rebase zhihu release-5.14</p>
+<p>###查看关联的所有远程仓库</p>
+<p>git remote -v</p>
+<p>###查看本地仓库关联的远程仓库</p>
+<p>git branch -v / git branch -vv</p>
+<p>###删除远程分支</p>
+<p>$ git push remoteName –delete <branchname></branchname></p>
+<p>$ git push remoteName :<branchname></branchname></p>
+<p>###删除本地分支</p>
+<p>$ git branch -D <branchname></branchname></p>
+<p>###删除本地过时分支</p>
+<p>$ git remote prune origin</p>
+<p>###筛选指定分支</p>
+<p>$ git branch -r |grep <name></name></p>
+<p>###拉分支修改并提交到该分支</p>
+<p>$ git checkout -b <localbranchname> remoteName/<remotebranchname></remotebranchname></localbranchname></p>
+<p>$ git add .</p>
+<p>$ git commit -m “”</p>
+<p>$ git push remoteName <localbranchname>:<remotebranchname></remotebranchname></localbranchname></p>
+<p>###推代码</p>
+<p>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</p>
+<p>###将某分支上的 commit(38361a68138140827b31b72f8bbfd88b3705d77a) 放到当前分支</p>
+<p>$ git cherry-pick <commit id></commit></p>
+<p>###合并多个 commit ：<a href="https://www.jianshu.com/p/964de879904a" target="_blank" rel="noopener">https://www.jianshu.com/p/964de879904a</a><br> $ git rebase -i &lt;需要操作的前一个 commit id&gt;</p>
+<p>###将log打印到文件</p>
+<p>切换到一个盘如D盘</p>
+<p>adb logcat -v time &gt; log.txt</p>
+<p>###快速寻找当前焦点下的Activity</p>
+<p>adb shell dumpsys activity | find “mFocusedActivity”</p>
+<p>###美团热修复，用到的打包命令</p>
+<p>gradlew clean assembleRelease –stacktrace –no-daemon</p>
+<p>###gradle 命令</p>
+<p>./gradlew clean &amp;&amp; ./gradlew assembleZhihuRelease –profile</p>
+<p>./gradlew :app:uploadArchives   升级依赖版本</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/14/Handler 内存泄漏及解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1508,155 +1675,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/Android 绘制原理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Songmingwen">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/avatar.png?raw=true">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Song">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/11/Android 绘制原理/" itemprop="url">Android View 绘制原理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T15:30:50+08:00">
-                2019-09-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件</p>
-<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.png?raw=true" alt></p>
-<ol>
-<li><p>Window 类是一个抽象类，提供绘制窗口的 API</p>
-</li>
-<li><p>PhoneWindow 是继承 Window 的一个具体的类，该类内部包含了一个 DecorView 对象，该 DecorView 对象是所有应用窗口(Activity 界面)的根 View</p>
-</li>
-<li><p>DecorView 继承 FrameLayout，里面 id=content 的就是我们传入的布局视图</p>
-</li>
-<li><p>ContentView 必须是一个 ViewGroup</p>
-</li>
-<li><p>ViewGroup 开始递归执行以下逻辑进行绘制</p>
-<blockquote>
-<p>measure, 递归测量 view 的大小。有3种测量模式</p>
-<ul>
-<li><p>MeasureSpec.EXACTLY 表示确定大小</p>
-</li>
-<li><p>MeasureSpec.AT_MOST 表示最大大小</p>
-</li>
-<li><p>MeasureSpec.UNSPECIFIED 不确定</p>
-</li>
-</ul>
-<p>layout，递归布局 view 的位置</p>
-<p>draw，递归绘制 view</p>
-<ul>
-<li>ViewRootImpl 中的代码会创建一个 Canvas 对象，然后调用 View 的 draw() 方法来执行具体的绘制</li>
-</ul>
-</blockquote>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1709,7 +1727,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1750,7 +1768,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

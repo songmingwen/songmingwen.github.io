@@ -239,6 +239,155 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/Android 绘制原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Songmingwen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/avatar.png?raw=true">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Song">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/09/11/Android 绘制原理/" itemprop="url">Android View 绘制原理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-11T15:30:50+08:00">
+                2019-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Activity 的 window 组成，Activity 内部有个 Window 成员，它的实例为 PhoneWindow，PhoneWindow 有个内部类是 DecorView，这个 DecorView 就是存放布局文件的，里面有 TitleActionBar 和我们 setContentView 传入进去的 layout 布局文件</p>
+<p><img src="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_view_draw_process.png?raw=true" alt></p>
+<ol>
+<li><p>Window 类是一个抽象类，提供绘制窗口的 API</p>
+</li>
+<li><p>PhoneWindow 是继承 Window 的一个具体的类，该类内部包含了一个 DecorView 对象，该 DecorView 对象是所有应用窗口(Activity 界面)的根 View</p>
+</li>
+<li><p>DecorView 继承 FrameLayout，里面 id=content 的就是我们传入的布局视图</p>
+</li>
+<li><p>ContentView 必须是一个 ViewGroup</p>
+</li>
+<li><p>ViewGroup 开始递归执行以下逻辑进行绘制</p>
+<blockquote>
+<p>measure, 递归测量 view 的大小。有3种测量模式</p>
+<ul>
+<li><p>MeasureSpec.EXACTLY 表示确定大小</p>
+</li>
+<li><p>MeasureSpec.AT_MOST 表示最大大小</p>
+</li>
+<li><p>MeasureSpec.UNSPECIFIED 不确定</p>
+</li>
+</ul>
+<p>layout，递归布局 view 的位置</p>
+<p>draw，递归绘制 view</p>
+<ul>
+<li>ViewRootImpl 中的代码会创建一个 Canvas 对象，然后调用 View 的 draw() 方法来执行具体的绘制</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/Handler 机制与底层实现原理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1284,7 +1433,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1325,7 +1474,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
