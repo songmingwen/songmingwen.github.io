@@ -86,10 +86,12 @@
 <meta property="og:site_name" content="Song">
 <meta property="og:description" content="概念 Message - Message 代表一个行为 what 或者一串动作 Runnable, 每一个消息在加入消息队列时,都有明确的目标 Handler MessageQueue - 以队列的形式对外提供插入和删除的工作, 其内部结构是以双向链表的形式存储消息的 Looper - Looper 是循环的意思,它负责从消息队列中循环的取出消息然后把消息交给 Handler 处理 Handler">
 <meta property="og:locale">
+<meta property="og:image" content="https://raw.githubusercontent.com/songmingwen/songmingwen.github.io/master/images/android_handler.jpg">
 <meta property="article:published_time" content="2021-05-12T15:54:12.619Z">
-<meta property="article:modified_time" content="2021-05-13T13:50:40.310Z">
+<meta property="article:modified_time" content="2021-05-13T15:06:23.287Z">
 <meta property="article:author" content="songmingwen">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/songmingwen/songmingwen.github.io/master/images/android_handler.jpg">
 
 
 
@@ -312,7 +314,7 @@
 <p>消息队列创建时，会调用 JNI 函数，初始化 NativeMessageQueue 对象。NativeMessageQueue 则会初始化Looper 对象</p>
 <p>Looper 的作用是当 Java 层的消息队列中没有消息时，就使 Android 应用程序主线程进入等待状态，而当 Java 层的消息队列中来了新的消息后，就唤醒 Android 应用程序的主线程来处理这个消息</p>
 </blockquote>
-<h2 id="消息机制流程"><a href="#消息机制流程" class="headerlink" title="消息机制流程"></a>消息机制流程</h2><p><a target="_blank" rel="noopener" href="https://github.com/songmingwen/songmingwen.github.io/blob/master/assets/img/android_handler.jpg?raw=true">![img](Handler 机制与底层实现原理.assets/android_handler.jpg)</a></p>
+<h2 id="消息机制流程"><a href="#消息机制流程" class="headerlink" title="消息机制流程"></a>消息机制流程</h2><p><img src="https://raw.githubusercontent.com/songmingwen/songmingwen.github.io/master/images/android_handler.jpg" alt="img"></p>
 <ul>
 <li>Handler 通过 sendMessage() 发送 Message 到 MessageQueue 队列</li>
 <li>Looper 通过 loop()，不断提取出达到触发条件的 Message，并将 Message 交给 target 来处理</li>
