@@ -1,9 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.hunantv.imgo.activity.inter",
-    "sha256_cert_fingerprints":
-    ["F8:30:AB:F0:A4:D4:1B:A9:4B:1E:3A:6E:F3:5C:EF:43:31:B7:14:D2:AA:73:4D:CE:EE:E4:3C:63:51:48:09:BF"]
-  }
-}]
